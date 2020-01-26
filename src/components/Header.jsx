@@ -76,7 +76,7 @@ const Header = ({ reloadStyles }) => {
             
             />
             <div style={{ flex: 1 }} />
-            <div className="desktopStyleMatchContainer">
+            <div className="desktopStyleMatchContainer" style={reloadStyles ? {} : {display: "none"}}>
                 {showReloadButton && (
                     <button className="desktopReloadStylesButton" onClick={() => {
                         reloadStyles(value);

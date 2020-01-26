@@ -20,6 +20,13 @@ USERS = "users"
 db: Client = firestore.client()
 bucket = storage.bucket()
 
+@app.after_request
+def after_request(response):
+    header = response.headers
+    header["Access-Control-Allow-Origin"] = "*"
+    header["Access-Control-Allow-Headers"] = "*"
+    return response
+
 
 def upload_file(file, cloud_path):
     image_blob = bucket.blob(cloud_path)
@@ -35,6 +42,7 @@ def add_item(username, item_type, file):
                        "es not exist"), HTTPStatus.NOT_FOUND
     image_link = upload_file(file, f"{USERS}/{username}/{item_type}/{str(uuid.uuid4())}.jpg")
     doc[item_type].append(image_link)
+    doc_ref.update(doc)
     return jsonify(image_link), HTTPStatus.OK
 
 

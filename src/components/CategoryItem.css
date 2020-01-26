@@ -6,9 +6,8 @@
 }
 
 .desktopCategoryName {
-    margin: 0px;
-    margin-top: 15px;
-    font-family: 'Futura-Medium';
+    margin: 15px 0 0;
+    font-family: 'Futura-Medium', sans-serif;
     font-size: 20px;
     color: #5A5A5A;
     text-align: center;
@@ -16,9 +15,8 @@
 }
 
 .desktopCategoryBrand {
-    margin: 0px;
-    margin-top: 5px;
-    font-family: 'Futura-Medium-Italic';
+    margin: 5px 0 0;
+    font-family: 'Futura-Medium-Italic', sans-serif;
     font-size: 14px;
     color: #A3A3A3;
     text-align: center;
@@ -27,6 +25,7 @@
 .desktopCategoryItemSrc {
     height: 285px;
     width: 240px;
+    object-fit: cover;
 }
 
 .desktopCategoryItemMatch {
@@ -43,7 +42,7 @@
 }
 
 .desktopCategoryItemMatch > p {
-    font-family: 'Futura-Medium';
+    font-family: 'Futura-Medium', sans-serif;
     font-size: 16px;
     color: #fff;
 }
