@@ -72,7 +72,7 @@ const CategorySectionIterator = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 position: 'absolute',
-                left: 0
+                left: 0,
             }}>
                 {renderSections()}
             </div>
