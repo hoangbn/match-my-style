@@ -1,0 +1,7 @@
+prodset: 1212123 (pants)
+prodset: 121212 (shirts)
+
+prod: del6 (shirts)
+prod: del7 (pants)
+
+
