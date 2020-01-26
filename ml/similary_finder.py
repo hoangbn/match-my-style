@@ -100,13 +100,13 @@ def get_most_similar():
     threshold = request.args.get("percentage")
     item = request.args.get("item")
 
-    create_product_set('matchmystyle', 'us-central', '1', 'shirts')
-    create_product('matchmystyle','us-central', '1a', 'shirt1', 'apparel-v2')
-    add_product_to_product_set('matchmystyle', 'us-central', '1a', '1')
+    create_product_set('matchmystyle', 'us-east1', '1212', 'shirts')
+    create_product('matchmystyle','us-east1', '12', 'shirt1', 'apparel-v2')
+    add_product_to_product_set('matchmystyle', 'us-east1', '12', '1212')
+    return 'hello there'
 
 
 
 
 if __name__ == '__main__':
-    
     app.run()
