@@ -1,5 +1,6 @@
-from flask import Flask, request, jsonify
+from flask import jsonify
 from google.cloud import vision
+from utils import to_gcs_uri
 
 prodSet_to_prods = {}
 LOCATION = 'us-east1'
@@ -84,16 +85,7 @@ data = {
         },
     ]
 }
-app = Flask(__name__)
 
-# user_data = {
-#                 "shirts": [], 
-#                 "pants": []
-#             }
-# cata_data = {
-#                 "shirts": [], 
-#                 "pants": []
-#             }
 
 def create_product_set(project_id, location, product_set_id1, product_set_display_name):
     """Create a product set.
@@ -111,7 +103,7 @@ def create_product_set(project_id, location, product_set_id1, product_set_displa
 
     # Create a product set with the product set specification in the region.
     product_set = vision.types.ProductSet(
-            display_name=product_set_display_name)
+        display_name=product_set_display_name)
 
     # The response is the product set with `name` populated.
     response = client.create_product_set(
@@ -209,6 +201,7 @@ def create_reference_image(project_id, location, product_id, reference_image_id,
     print('Reference image "name": {}'.format(image.name))
     print('Reference image "uri": {}'.format(image.uri))
 
+
 def cleanProductIds(project_id, location, product_id):
     client = vision.ProductSearchClient()
 
@@ -219,6 +212,7 @@ def cleanProductIds(project_id, location, product_id):
     # Delete a product.
     client.delete_product(name=product_path)
     print('Product deleted.')
+
 
 def cleanProductSets(project_id, location, product_set_id):
     client = vision.ProductSearchClient()
@@ -232,18 +226,19 @@ def cleanProductSets(project_id, location, product_set_id):
     client.delete_product_set(name=product_set_path)
     print('Product set deleted.')
 
+
 def cleanAll(project_id, location):
     # clean all prod_ids
     for list in prodSet_to_prods.values():
         for prod_ids in list:
             cleanProductIds(project_id, location, prod_ids)
-    
+
     # clean prod sets
     for prod_sets in prodSet_to_prods:
         cleanProductSets(project_id, location, prod_sets)
 
-   
-def get_similar_products_uri(project_id, location, product_set_id, product_category,image_uri, filter):
+
+def get_similar_products_uri(project_id, location, product_set_id, product_category, image_uri, filter):
     """Search similar products to image.
     Args:
         project_id: Id of the project.
@@ -288,7 +283,7 @@ def get_similar_products_uri(project_id, location, product_set_id, product_categ
     results = response.product_search_results.results
 
     print('Search results:')
-    print (results)
+    print(results)
     for result in results:
         product = result.product
 
@@ -302,7 +297,8 @@ def get_similar_products_uri(project_id, location, product_set_id, product_categ
         print('Product labels: {}\n'.format(product.product_labels))
     return results
 
-def get_similar_products_file(project_id, location, product_set_id, product_category,file_path, filter):
+
+def get_similar_products_file(project_id, location, product_set_id, product_category, file_path, filter):
     """Search similar products to image.
     Args:
         project_id: Id of the project.
@@ -363,6 +359,7 @@ def get_similar_products_file(project_id, location, product_set_id, product_cate
         print('Product description: {}\n'.format(product.description))
         print('Product labels: {}\n'.format(product.product_labels))
 
+
 def list_product_sets(project_id, location):
     """List all product sets.
     Args:
@@ -387,6 +384,7 @@ def list_product_sets(project_id, location):
         print('  seconds: {}'.format(product_set.index_time.seconds))
         print('  nanos: {}\n'.format(product_set.index_time.nanos))
 
+
 def list_products(project_id, location):
     """List all products.
     Args:
@@ -410,6 +408,7 @@ def list_products(project_id, location):
         print('Product category: {}'.format(product.product_category))
         print('Product labels: {}\n'.format(product.product_labels))
 
+
 def list_reference_images(project_id, location, product_id):
     """List all images in a product.
     Args:
@@ -432,6 +431,7 @@ def list_reference_images(project_id, location, product_id):
         print('Reference image id: {}'.format(image.name.split('/')[-1]))
         print('Reference image "uri": {}'.format(image.uri))
         print('Reference image bounding polygons: {}'.format(image.bounding_polys))
+
 
 def purge_products_in_product_set(project_id, location, product_set_id, force):
     """Delete all products in a product set.
@@ -463,28 +463,25 @@ def purge_products_in_product_set(project_id, location, product_set_id, force):
 
     print('Deleted products in product set.')
 
-iid=10
+
+iid = 10
 shirtSetId = "121212"
 pantSetId = "1212123"
-@app.route("/getSimilar")
-def get_most_similar():
-    threshold = request.args.get("percentage")
-    data = request.json
-    # create_product_set(PROJECT_ID, LOCATION, shirtSetId, "shirts")
-    # create_product_set(PROJECT_ID, LOCATION, pantSetId, "pants")
-    # loop through shirts and pants in catalog data, create products for them
+
+def get_most_similar(threshold, user_shirts, user_pants):
     for shirt in data["shirts"]:
         create_product(PROJECT_ID, LOCATION, str(iid), shirt["name"], CATEGORY)
-        create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid+1), shirt["uri"])
+        create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid + 1), shirt["uri"])
         add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), shirtSetId)
-        iid+=2
+        iid += 2
     for pant in data["pants"]:
         create_product(PROJECT_ID, LOCATION, str(iid), pant["name"], CATEGORY)
-        create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid+1), pant["uri"])
+        create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid + 1), pant["uri"])
         add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), pantSetId)
-        iid+=2
+        iid += 2
     # loop through user data GC links and get similar products in catalog and record similarity score
-    for uri in range(3): # loop through shirts
+    for url in user_shirts:  # loop through shirts
+        uri = to_gcs_uri(url)
         rs = get_similar_products_uri(PROJECT_ID, LOCATION, shirtSetId, CATEGORY, uri, "")
         for r in rs:
             for shirt in data["shirts"]:
@@ -493,7 +490,8 @@ def get_most_similar():
                         shirt["score"] = []
                     shirt["score"].append(r.score)
                     break
-    for uri in range(3): # loop through pants
+    for url in user_pants:  # loop through pants
+        uri = to_gcs_uri(url)
         rs = get_similar_products_uri(PROJECT_ID, LOCATION, pantSetId, CATEGORY, uri, "")
         for r in rs:
             for pant in data["pants"]:
@@ -513,33 +511,9 @@ def get_most_similar():
         if data["pants"][i]["score"] < threshold:
             del data["pants"][i]
     return jsonify(data)
-    
-    # try:
-    #     create_product_set(PROJECT_ID, LOCATION, 'dd', 'shirts')
-    #     create_product_set(PROJECT_ID, LOCATION, 'dd1', 'pants')
-    #     create_product(PROJECT_ID, LOCATION, 'del4', 'shirt1', CATEGORY)
-    #     create_product(PROJECT_ID, LOCATION, 'del5', 'pant1', CATEGORY)    
-    #     add_product_to_product_set(PROJECT_ID, LOCATION, 'del4', 'dd')
-    #     add_product_to_product_set(PROJECT_ID, LOCATION, 'del5', 'dd1')
-    #     create_reference_image(PROJECT_ID, LOCATION, 'del4', 'bruh1', 'gs://matchmystyle-vcm/shirts/22756272_SearchResults.jpg')
-    #     create_reference_image(PROJECT_ID, LOCATION, 'del4', 'bruh2', 'gs://matchmystyle-vcm/shirts/KIC_125-9156-0996-201_prod1 (1).jpg')
-    #     create_reference_image(PROJECT_ID, LOCATION, 'del5', 'bruh3', 'gs://matchmystyle-vcm/pants/hmgoepprod.jfif')
-    #     create_reference_image(PROJECT_ID, LOCATION, 'del5', 'bruh4', 'gs://matchmystyle-vcm/pants/hmgoepprod (1).jfif')
-    #     get_similar_products_uri(PROJECT_ID, LOCATION, 'dd', CATEGORY, 'gs://matchmystyle-vcm/images to be searched/mens-regular-fit-solid-colour-linen-shirt.jpg', None)
-    # except Exception as e:
-    #     print(e)
-    #     cleanAll(PROJECT_ID, LOCATION)
-    # cleanAll(PROJECT_ID, LOCATION)
-    # global prodSet_to_prods
-    # prodSet_to_prods = {}
-    # return 'hey heyyyyyyy babuu frick'
 
-@app.route("/deleteshit")
-def get_most_similar1():
+
+def purge_products():
     purge_products_in_product_set(PROJECT_ID, LOCATION, shirtSetId, True)
     purge_products_in_product_set(PROJECT_ID, LOCATION, pantSetId, True)
     return 'ded'
-
-
-if __name__ == '__main__':
-    app.run()
