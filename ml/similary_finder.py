@@ -298,16 +298,18 @@ def get_most_similar():
     #     create_product("matchmystyle", "us-east1", iid, pant["name"], pant["brand"])
     #     iid+=1
 
-
-    create_product_set(PROJECT_ID, LOCATION, '1212', 'shirts')
-    create_product_set(PROJECT_ID, LOCATION, '1213', 'pants')
+    
+    create_product_set(PROJECT_ID, LOCATION, '121212', 'shirts')
+    create_product_set(PROJECT_ID, LOCATION, '1212123', 'pants')
     create_product(PROJECT_ID, LOCATION, 'del', 'shirt1', 'apparel-v2')
     create_product(PROJECT_ID, LOCATION, 'del2', 'shirt1', 'apparel-v2')
-    add_product_to_product_set(PROJECT_ID, LOCATION, 'del', '1212')
-    add_product_to_product_set(PROJECT_ID, LOCATION, 'del2', '1213')
+    add_product_to_product_set(PROJECT_ID, LOCATION, 'del', '121212')
+    add_product_to_product_set(PROJECT_ID, LOCATION, 'del2', '1212123')
     cleanAll(PROJECT_ID, LOCATION)
+    global prodSet_to_prods
     prodSet_to_prods = {}
-    return 'hello there'
+
+    return 'hey heyyyyyyy babuu frick'
 
 
 
