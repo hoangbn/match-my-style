@@ -1,0 +1,39 @@
+.desktopCategorySectionsLayout {
+    display: flex;
+    flex-direction: row;
+    float: right;
+}
+
+.desktopScrollBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    height: 250px;
+    width: 50px;
+    top: 35vh;
+    right: 0;
+    border-radius: 10px;
+    background-color: #E5E5E5;
+    margin-right: 35px;
+}
+
+.desktopScrollBarCategory {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.desktopScrollBarSections {
+    position: relative;
+    right: 75px;
+}
+
+.desktopScrollBarBubbles {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    right: 45px;
+}
