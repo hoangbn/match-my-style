@@ -6,81 +6,81 @@ LOCATION = 'us-east1'
 PROJECT_ID =  'matchmystyle'
 CATEGORY = "apparel-v2"
 GCS_LINK = ""
-export const catalogData = {
-    shirts: [
+data = {
+    "shirts": [
         {
-            src: 'https://lp2.hm.com/hmgoepprod?set=source[/c8/78/c8785457e25bbd6f8976c8242981e266ff387e42.jpg],origin[dam],category[men_shirts_casual],type[DESCRIPTIVESTILLLIFE],res[m],hmver[2]&call=url[file:/product/main]',
-            uri: 'gs://matchmystyle-vcm/shirts/hmgoepprod.jfif',
-            name: 'Linen Shirt',
-            brand: 'H&M'
+            "src": 'https://lp2.hm.com/hmgoepprod?set=source[/c8/78/c8785457e25bbd6f8976c8242981e266ff387e42.jpg],origin[dam],category[men_shirts_casual],type[DESCRIPTIVESTILLLIFE],res[m],hmver[2]&call=url[file:/product/main]',
+            "uri": 'gs://matchmystyle-vcm/shirts/hmgoepprod.jfif',
+            "name": 'Linen Shirt',
+            "brand": 'H&M'
         },
         {
-            src: 'https://eultsimages.blob.core.windows.net/product-variant-images/22756272_SearchResults.jpg',
-            uri: 'gs://matchmystyle-vcm/shirts/22756272_SearchResults.jpg',
-            name: 'White Pin Dot Shirt',
-            brand: 'Lacoste'
+            "src": 'https://eultsimages.blob.core.windows.net/product-variant-images/22756272_SearchResults.jpg',
+            "uri": 'gs://matchmystyle-vcm/shirts/22756272_SearchResults.jpg',
+            "name": 'White Pin Dot Shirt',
+            "brand": 'Lacoste'
         },
         {
-            src: 'https://tommy-europe.scene7.com/is/image/TommyEurope/TT0TT06855_0YD_main?$main@2x$',
-            uri: 'gs://matchmystyle-vcm/shirts/TT0TT06855_0YD_main.webp',
-            name: 'Rower Point Collar Slim Fit Shirt',
-            brand: 'Tommy Hilfiger'
+            "src": 'https://tommy-europe.scene7.com/is/image/TommyEurope/TT0TT06855_0YD_main?$main@2x$',
+            "uri": 'gs://matchmystyle-vcm/shirts/TT0TT06855_0YD_main.webp',
+            "name": 'Rower Point Collar Slim Fit Shirt',
+            "brand": 'Tommy Hilfiger'
         },
         {
-            src: 'https://oldnavy.gap.com/webcontent/0017/927/929/cn17927929.jpg',
-            uri: 'gs://matchmystyle-vcm/shirts/cn17927929.webp',
-            name: 'Slim-Fit Built-In Flex Signature Non-Iron Shirt for Men',
-            brand: 'Old Navy'
+            "src": 'https://oldnavy.gap.com/webcontent/0017/927/929/cn17927929.jpg',
+            "uri": 'gs://matchmystyle-vcm/shirts/cn17927929.webp',
+            "name": 'Slim-Fit Built-In Flex Signature Non-Iron Shirt for Men',
+            "brand": 'Old Navy'
         },
         {
-            src: 'https://anf.scene7.com/is/image/anf/KIC_125-9156-0996-201_prod1?$product-anf-v1$&wid=800&hei=1000',
-            uri: 'gs://matchmystyle-vcm/shirts/KIC_125-9156-0996-201_prod1.webp',
-            name: 'Signature Fit Oxford Shirt',
-            brand: 'Abercrombie & Fitch'
+            "src": 'https://anf.scene7.com/is/image/anf/KIC_125-9156-0996-201_prod1?$product-anf-v1$&wid=800&hei=1000',
+            "uri": 'gs://matchmystyle-vcm/shirts/KIC_125-9156-0996-201_prod1.webp',
+            "name": 'Signature Fit Oxford Shirt',
+            "brand": 'Abercrombie & Fitch'
         },
         {
-            src: 'https://cdn.shopify.com/s/files/1/0017/2100/8243/products/SFX-1_FRONT_DOLPHIN_2000x.jpg?v=1555356949',
-            uri: 'gs://matchmystyle-vcm/shirts/SFX-1_FRONT_DOLPHIN_2000x.jpg',
-            name: 'Logan Snap Front Shirt - SFX-1',
-            brand: 'Stormtech'
+            "src": 'https://cdn.shopify.com/s/files/1/0017/2100/8243/products/SFX-1_FRONT_DOLPHIN_2000x.jpg?v=1555356949',
+            "uri": 'gs://matchmystyle-vcm/shirts/SFX-1_FRONT_DOLPHIN_2000x.jpg',
+            "name": 'Logan Snap Front Shirt - SFX-1',
+            "brand": 'Stormtech'
         }
     ],
-    pants: [
+    "pants": [
         {
-            src: 'https://lp2.hm.com/hmgoepprod?set=source[/a4/d1/a4d14f0ad315aa0cda7574bc2fe028ab70c1ab2e.jpg],origin[dam],category[],type[DESCRIPTIVESTILLLIFE],hmver[1]&call=url[file:/product/main]',
-            uri: 'gs://matchmystyle-vcm/pants/hmgoepprod (1).jfif',
-            name: 'Skinny Fit Cotton Chinos',
-            brand: 'H&M'
+            "src": 'https://lp2.hm.com/hmgoepprod?set=source[/a4/d1/a4d14f0ad315aa0cda7574bc2fe028ab70c1ab2e.jpg],origin[dam],category[],type[DESCRIPTIVESTILLLIFE],hmver[1]&call=url[file:/product/main]',
+            "uri": 'gs://matchmystyle-vcm/pants/hmgoepprod (1).jfif',
+            "name": 'Skinny Fit Cotton Chinos',
+            "brand": 'H&M'
         },
         {
-            src: 'https://imagena1.lacoste.com/dw/image/v2/AAUP_PRD/on/demandware.static/-/Sites-master/default/dw766f01fc/HH9553_PQ8_24.jpg?imwidth=767&impolicy=product',
-            uri: 'gs://matchmystyle-vcm/pants/HH9553_PQ8_24.webp',
-            name: 'Slim Fit Stretch Gabardine Chino Pants',
-            brand: 'Lacoste'
+            "src": 'https://imagena1.lacoste.com/dw/image/v2/AAUP_PRD/on/demandware.static/-/Sites-master/default/dw766f01fc/HH9553_PQ8_24.jpg?imwidth=767&impolicy=product',
+            "uri": 'gs://matchmystyle-vcm/pants/HH9553_PQ8_24.webp',
+            "name": 'Slim Fit Stretch Gabardine Chino Pants',
+            "brand": 'Lacoste'
         },
         {
-            src: 'https://www.rlmedia.io/is/image/PoloGSI/s7-1350026_lifestyle?$rl_df_pdp_5_7_lif$',
-            uri: 'gs://matchmystyle-vcm/pants/s7-1350026_lifestyle.jfif',
-            name: 'Stretch Slim Fit Chino Pant',
-            brand: 'Ralph Lauren'
+            "src": 'https://www.rlmedia.io/is/image/PoloGSI/s7-1350026_lifestyle?$rl_df_pdp_5_7_lif$',
+            "uri": 'gs://matchmystyle-vcm/pants/s7-1350026_lifestyle.jfif',
+            "name": 'Stretch Slim Fit Chino Pant',
+            "brand": 'Ralph Lauren'
         },
         {
-            src: 'https://www.rlmedia.io/is/image/PoloGSI/s7-1356471_lifestyle?$rl_df_pdp_5_7_lif$',
-            uri: 'gs://matchmystyle-vcm/pants/s7-1356471_lifestyle.jfif',
-            name: 'Slim Fit Linen-Blend Pant',
-            brand: 'Ralph Lauren'
+            "src": 'https://www.rlmedia.io/is/image/PoloGSI/s7-1356471_lifestyle?$rl_df_pdp_5_7_lif$',
+            "uri": 'gs://matchmystyle-vcm/pants/s7-1356471_lifestyle.jfif',
+            "name": 'Slim Fit Linen-Blend Pant',
+            "brand": 'Ralph Lauren'
         },
         {
-            src: 'https://imagena1.lacoste.com/dw/image/v2/AAUP_PRD/on/demandware.static/-/Sites-master/default/dw00e2fe5d/HH5541_02S_24.jpg?imwidth=767&impolicy=product',
-            uri: 'gs://matchmystyle-vcm/pants/HH5541_02S_24.webp',
-            name: 'Motion Ergonomic Pants',
-            brand: 'Lacoste'
+            "src": 'https://imagena1.lacoste.com/dw/image/v2/AAUP_PRD/on/demandware.static/-/Sites-master/default/dw00e2fe5d/HH5541_02S_24.jpg?imwidth=767&impolicy=product',
+            "uri": 'gs://matchmystyle-vcm/pants/HH5541_02S_24.webp',
+            "name": 'Motion Ergonomic Pants',
+            "brand": 'Lacoste'
         },
         {
-            src: 'https://lp2.hm.com/hmgoepprod?set=source[/aa/30/aa30202e0074e5adfa8dc6e7f127c63c78f56857.jpg],origin[dam],category[men_trousers_trousers_skinny_all],type[DESCRIPTIVESTILLLIFE],hmver[1]&call=url[file:/product/main]',
-            uri: 'gs://matchmystyle-vcm/pants/hmgoepprod.jfif',
-            name: 'Twill Pants Skinny Fit',
-            brand: 'H&M'
+            "src": 'https://lp2.hm.com/hmgoepprod?set=source[/aa/30/aa30202e0074e5adfa8dc6e7f127c63c78f56857.jpg],origin[dam],category[men_trousers_trousers_skinny_all],type[DESCRIPTIVESTILLLIFE],hmver[1]&call=url[file:/product/main]',
+            "uri": 'gs://matchmystyle-vcm/pants/hmgoepprod.jfif',
+            "name": 'Twill Pants Skinny Fit',
+            "brand": 'H&M'
         },
     ]
 }
@@ -101,7 +101,7 @@ def create_product_set(project_id, location, product_set_id1, product_set_displa
         project_id: Id of the project.
         location: A compute region name.
         product_set_id: Id of the product set.
-        product_set_display_name: Display name of the product set.
+        product_set_display_"name": Display name of the product set.
     """
     client = vision.ProductSearchClient()
 
@@ -121,7 +121,7 @@ def create_product_set(project_id, location, product_set_id1, product_set_displa
     prodSet_to_prods[product_set_id1] = []
 
     # Display the product set information.
-    print('Product set name: {}'.format(response.name))
+    print('Product set "name": {}'.format(response.name))
 
 
 def create_product(project_id, location, product_id, product_display_name, product_category):
@@ -130,7 +130,7 @@ def create_product(project_id, location, product_id, product_display_name, produ
         project_id: Id of the project.
         location: A compute region name.
         product_id: Id of the product.
-        product_display_name: Display name of the product.
+        product_display_"name": Display name of the product.
         product_category: Category of the product.
     """
     client = vision.ProductSearchClient()
@@ -151,7 +151,7 @@ def create_product(project_id, location, product_id, product_display_name, produ
         product_id=product_id)
 
     # Display the product information.
-    print('Product name: {}'.format(response.name))
+    print('Product "name": {}'.format(response.name))
 
 
 def add_product_to_product_set(project_id, location, product_id, product_set_id):
@@ -188,7 +188,7 @@ def create_reference_image(project_id, location, product_id, reference_image_id,
         location: A compute region name.
         product_id: Id of the product.
         reference_image_id: Id of the reference image.
-        gcs_uri: Google Cloud Storage path of the input image.
+        gcs_"uri": Google Cloud Storage path of the input image.
     """
     client = vision.ProductSearchClient()
 
@@ -206,8 +206,8 @@ def create_reference_image(project_id, location, product_id, reference_image_id,
         reference_image_id=reference_image_id)
 
     # Display the reference image information.
-    print('Reference image name: {}'.format(image.name))
-    print('Reference image uri: {}'.format(image.uri))
+    print('Reference image "name": {}'.format(image.name))
+    print('Reference image "uri": {}'.format(image.uri))
 
 def cleanProductIds(project_id, location, product_id):
     client = vision.ProductSearchClient()
@@ -293,16 +293,14 @@ def get_similar_products_uri(project_id, location, product_set_id, product_categ
         product = result.product
 
         print('Score(Confidence): {}'.format(result.score))
-        print('Image name: {}'.format(result.image))
+        print('Image "name": {}'.format(result.image))
 
-        print('Product name: {}'.format(product.name))
-        print('Product display name: {}'.format(
+        print('Product "name": {}'.format(product.name))
+        print('Product display "name": {}'.format(
             product.display_name))
         print('Product description: {}\n'.format(product.description))
         print('Product labels: {}\n'.format(product.product_labels))
     return results
-
-iid=3
 
 def get_similar_products_file(project_id, location, product_set_id, product_category,file_path, filter):
     """Search similar products to image.
@@ -357,10 +355,10 @@ def get_similar_products_file(project_id, location, product_set_id, product_cate
         product = result.product
 
         print('Score(Confidence): {}'.format(result.score))
-        print('Image name: {}'.format(result.image))
+        print('Image "name": {}'.format(result.image))
 
-        print('Product name: {}'.format(product.name))
-        print('Product display name: {}'.format(
+        print('Product "name": {}'.format(product.name))
+        print('Product display "name": {}'.format(
             product.display_name))
         print('Product description: {}\n'.format(product.description))
         print('Product labels: {}\n'.format(product.product_labels))
@@ -382,9 +380,9 @@ def list_product_sets(project_id, location):
 
     # Display the product set information.
     for product_set in product_sets:
-        print('Product set name: {}'.format(product_set.name))
+        print('Product set "name": {}'.format(product_set.name))
         print('Product set id: {}'.format(product_set.name.split('/')[-1]))
-        print('Product set display name: {}'.format(product_set.display_name))
+        print('Product set display "name": {}'.format(product_set.display_name))
         print('Product set index time:')
         print('  seconds: {}'.format(product_set.index_time.seconds))
         print('  nanos: {}\n'.format(product_set.index_time.nanos))
@@ -405,9 +403,9 @@ def list_products(project_id, location):
 
     # Display the product information.
     for product in products:
-        print('Product name: {}'.format(product.name))
+        print('Product "name": {}'.format(product.name))
         print('Product id: {}'.format(product.name.split('/')[-1]))
-        print('Product display name: {}'.format(product.display_name))
+        print('Product display "name": {}'.format(product.display_name))
         print('Product description: {}'.format(product.description))
         print('Product category: {}'.format(product.product_category))
         print('Product labels: {}\n'.format(product.product_labels))
@@ -430,9 +428,9 @@ def list_reference_images(project_id, location, product_id):
 
     # Display the reference image information.
     for image in reference_images:
-        print('Reference image name: {}'.format(image.name))
+        print('Reference image "name": {}'.format(image.name))
         print('Reference image id: {}'.format(image.name.split('/')[-1]))
-        print('Reference image uri: {}'.format(image.uri))
+        print('Reference image "uri": {}'.format(image.uri))
         print('Reference image bounding polygons: {}'.format(image.bounding_polys))
 
 def purge_products_in_product_set(project_id, location, product_set_id, force):
@@ -465,26 +463,29 @@ def purge_products_in_product_set(project_id, location, product_set_id, force):
 
     print('Deleted products in product set.')
 
+iid=10
+shirtSetId = "121212"
+pantSetId = "1212123"
 @app.route("/getSimilar")
 def get_most_similar():
     threshold = request.args.get("percentage")
     data = request.json
-    create_product_set(PROJECT_ID, LOCATION, "1", "shirts")
-    create_product_set(PROJECT_ID, LOCATION, "2", "pants")
+    # create_product_set(PROJECT_ID, LOCATION, shirtSetId, "shirts")
+    # create_product_set(PROJECT_ID, LOCATION, pantSetId, "pants")
     # loop through shirts and pants in catalog data, create products for them
     for shirt in data["shirts"]:
-        create_product(PROJECT_ID, LOCATION, str(iid), "name", CATEGORY)
+        create_product(PROJECT_ID, LOCATION, str(iid), shirt["name"], CATEGORY)
         create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid+1), shirt["uri"])
-        add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), "1")
+        add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), shirtSetId)
         iid+=2
     for pant in data["pants"]:
-        create_product(PROJECT_ID, LOCATION, str(iid), "name", CATEGORY)
+        create_product(PROJECT_ID, LOCATION, str(iid), pant["name"], CATEGORY)
         create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid+1), pant["uri"])
-        add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), "2")
+        add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), pantSetId)
         iid+=2
     # loop through user data GC links and get similar products in catalog and record similarity score
-    for uri in ramge(3): # loop through shirts
-        rs = get_similar_products_uri(PROJECT_ID, LOCATION, "1", CATEGORY, uri, "")
+    for uri in range(3): # loop through shirts
+        rs = get_similar_products_uri(PROJECT_ID, LOCATION, shirtSetId, CATEGORY, uri, "")
         for r in rs:
             for shirt in data["shirts"]:
                 if shirt["name"] == r.product.display_name:
@@ -493,7 +494,7 @@ def get_most_similar():
                     shirt["score"].append(r.score)
                     break
     for uri in range(3): # loop through pants
-        rs = get_similar_products_uri(PROJECT_ID, LOCATION, "2", CATEGORY, uri, "")
+        rs = get_similar_products_uri(PROJECT_ID, LOCATION, pantSetId, CATEGORY, uri, "")
         for r in rs:
             for pant in data["pants"]:
                 if pant["name"] == r.product.display_name:
@@ -504,11 +505,11 @@ def get_most_similar():
     # get the average score, delete if not above threshold
     # TODO: make better algorithm to summarize the scores
     for i in range(len(data["shirts"])):
-        data["shirts"][i]["score"] = mean(data["shirts"][i]["score"])
+        data["shirts"][i]["score"] = sum(data["shirts"][i]["score"]) / len(data["shirts"][i]["score"])
         if data["shirts"][i]["score"] < threshold:
             del data["shirts"][i]
     for i in range(len(data["pants"])):
-        data["pants"][i]["score"] = mean(data["pants"][i]["score"])
+        data["pants"][i]["score"] = sum(data["pants"][i]["score"]) / len(data["pants"][i]["score"])
         if data["pants"][i]["score"] < threshold:
             del data["pants"][i]
     return jsonify(data)
@@ -533,7 +534,11 @@ def get_most_similar():
     # prodSet_to_prods = {}
     # return 'hey heyyyyyyy babuu frick'
 
-
+@app.route("/deleteshit")
+def get_most_similar1():
+    purge_products_in_product_set(PROJECT_ID, LOCATION, shirtSetId, True)
+    purge_products_in_product_set(PROJECT_ID, LOCATION, pantSetId, True)
+    return 'ded'
 
 
 if __name__ == '__main__':
