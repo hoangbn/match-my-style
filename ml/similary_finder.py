@@ -1,15 +1,5 @@
-import uuid
-import datetime
-from http import HTTPStatus
-from google.cloud.firestore_v1.client import Client
-
-from firebase_admin import credentials, initialize_app, firestore, storage
 from flask import Flask, request, jsonify
 from google.cloud import vision
-
-from utils import valid_input
-
-app = Flask(__name__)
 
 prodSet_to_prods = {}
 LOCATION = 'us-east1'
@@ -94,82 +84,16 @@ data = {
         },
     ]
 }
+app = Flask(__name__)
 
-
-cred = credentials.Certificate("secret.json")
-initialize_app(cred, {
-    "storageBucket": "match-my-style.appspot.com"
-})
-
-# Put everything in 1 file for now (no time)
-USERS = "users"
-db: Client = firestore.client()
-bucket = storage.bucket()
-
-@app.after_request
-def after_request(response):
-    header = response.headers
-    header["Access-Control-Allow-Origin"] = "*"
-    header["Access-Control-Allow-Headers"] = "*"
-    return response
-
-
-def upload_file(file, cloud_path):
-    image_blob = bucket.blob(cloud_path)
-    image_blob.upload_from_file(file_obj=file, content_type=file.content_type)
-    return image_blob.generate_signed_url(datetime.timedelta(days=365))
-
-
-def add_item(username, item_type, file):
-    doc_ref = db.collection(USERS).document(username)
-    doc = doc_ref.get().to_dict()
-    if doc_ref.get().to_dict() is None:
-        return jsonify("use do"
-                       "es not exist"), HTTPStatus.NOT_FOUND
-    image_link = upload_file(file, f"{USERS}/{username}/{item_type}/{str(uuid.uuid4())}.jpg")
-    doc[item_type].append(image_link)
-    doc_ref.update(doc)
-    return jsonify(image_link), HTTPStatus.OK
-
-
-@app.route('/users', methods=['POST'])
-def create_user():
-    user_info = request.get_json()
-    if not valid_input(user_info, ["username"]):
-        return jsonify("invalid request body"), HTTPStatus.BAD_REQUEST
-    username = user_info.get("username")
-    doc_ref = db.collection(USERS).document(username)
-    doc = doc_ref.get().to_dict()
-    if doc is not None:
-        return jsonify("username exists"), HTTPStatus.CONFLICT
-    doc = {"pants": [], "shirts": []}
-    doc_ref.set(doc)
-    return jsonify("user created"), HTTPStatus.OK
-
-
-@app.route('/users/<username>', methods=['GET'])
-def get_user(username):
-    doc_ref = db.collection(USERS).document(username)
-    doc = doc_ref.get().to_dict()
-    if doc is None:
-        return jsonify("username not found"), HTTPStatus.NOT_FOUND
-    return jsonify(doc), HTTPStatus.OK
-
-
-@app.route('/users/<username>/pants', methods=['POST'])
-def add_pants(username):
-    if "file" not in request.files:
-        return jsonify("file missing in the header"), HTTPStatus.BAD_REQUEST
-    return add_item(username, "pants", request.files["file"])
-
-
-@app.route('/users/<username>/shirts', methods=['POST'])
-def add_shirts(username):
-    if "file" not in request.files:
-        return jsonify("file missing in the header"), HTTPStatus.BAD_REQUEST
-    return add_item(username, "shirts", request.files["file"])
-
-
+# user_data = {
+#                 "shirts": [], 
+#                 "pants": []
+#             }
+# cata_data = {
+#                 "shirts": [], 
+#                 "pants": []
+#             }
 
 def create_product_set(project_id, location, product_set_id1, product_set_display_name):
     """Create a product set.
@@ -542,12 +466,10 @@ def purge_products_in_product_set(project_id, location, product_set_id, force):
 iid=10
 shirtSetId = "121212"
 pantSetId = "1212123"
-
-# @app.route("/getSimilar")
-def get_most_similar(threshold, data, user_shirts, user_pants):
-    # user_pants
-    # threshold = request.args.get("percentage")
-    # data = request.json
+@app.route("/getSimilar")
+def get_most_similar():
+    threshold = request.args.get("percentage")
+    data = request.json
     # create_product_set(PROJECT_ID, LOCATION, shirtSetId, "shirts")
     # create_product_set(PROJECT_ID, LOCATION, pantSetId, "pants")
     # loop through shirts and pants in catalog data, create products for them
@@ -562,7 +484,7 @@ def get_most_similar(threshold, data, user_shirts, user_pants):
         add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), pantSetId)
         iid+=2
     # loop through user data GC links and get similar products in catalog and record similarity score
-    for uri in user_shirts: # loop through shirts
+    for uri in range(3): # loop through shirts
         rs = get_similar_products_uri(PROJECT_ID, LOCATION, shirtSetId, CATEGORY, uri, "")
         for r in rs:
             for shirt in data["shirts"]:
@@ -571,7 +493,7 @@ def get_most_similar(threshold, data, user_shirts, user_pants):
                         shirt["score"] = []
                     shirt["score"].append(r.score)
                     break
-    for uri in user_pants: # loop through pants
+    for uri in range(3): # loop through pants
         rs = get_similar_products_uri(PROJECT_ID, LOCATION, pantSetId, CATEGORY, uri, "")
         for r in rs:
             for pant in data["pants"]:
@@ -617,3 +539,7 @@ def get_most_similar1():
     purge_products_in_product_set(PROJECT_ID, LOCATION, shirtSetId, True)
     purge_products_in_product_set(PROJECT_ID, LOCATION, pantSetId, True)
     return 'ded'
+
+
+if __name__ == '__main__':
+    app.run()
