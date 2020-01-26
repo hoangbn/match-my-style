@@ -48,4 +48,13 @@ export default class UserService {
     static async addShirt(username, imageFile) {
         return await UserService.addItem(username, "shirts", imageFile);
     }
+
+    /**
+     * Add new pants to the user
+     * @param username of user
+     * @param threshold is the percentage
+     */
+    static async getMostSimilar(username, threshold) {
+        return (await axios.get(USERS_URL + "/" + username + "/getSimilarityScore/" + threshold)).data;
+    }
 }

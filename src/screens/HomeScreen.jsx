@@ -1,31 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { Header } from '../components';
 import { Subheader } from '../components/Subheader';
-import { useMediaQuery } from 'react-responsive';
 import CategorySectionIterator from '../containers/CategorySectionIterator';
 import { catalogData } from '../catalogData';
+import UserService from "../services/UserService";
+import {useAlert} from "react-alert";
+
+// hardcoded username for now
+const USERNAME = "waduhek"
 
 const HomeScreen = () => {
-    //const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
-    const reloadStyles = (value) => {
+    const alert = useAlert();
+    const [filteredCatalog, setFilteredCatalog] = useState(catalogData);
+
+    const reloadStyles = async (value) => {
         console.log(`reloading styles with ${value}% style match`);
+        try {
+            const data = await UserService.getMostSimilar(USERNAME, value);
+            setFilteredCatalog(data);
+        } catch (e) {
+            alert.error("Failed to load data");
+            console.error(e);
+        }
     };
 
-    // // if mobile
-    // if (isMobile) {
-    //     return (
-    //         <div className="mobileHeader">
-
-    //         </div>
-    //     );
-    // }
-
-    // if desktop
     return (
         <>
             <Header reloadStyles={reloadStyles} />
             <Subheader text={"Men's Demo Catalog > DeltaHacks 2020"}/>
-            <CategorySectionIterator itemsData={catalogData}/>
+            <CategorySectionIterator itemsData={filteredCatalog}/>
         </>
     );
 };

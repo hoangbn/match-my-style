@@ -10,7 +10,8 @@ const CategorySection = ({ categoryName, categoryData }) => {
             const src = categoryItemData.src ? categoryItemData.src : categoryItemData;
             const brand = categoryItemData.brand;
             const name = categoryItemData.name;
-            return <CategoryItem key={name} src={src} name={name} brand={brand} />;
+            const score_avg = categoryItemData.score_avg;
+            return <CategoryItem key={name} src={src} name={name} brand={brand} score_avg={score_avg} />;
         });
     };
 

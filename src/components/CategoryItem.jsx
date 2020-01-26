@@ -1,11 +1,11 @@
 import React from 'react';
 import './CategoryItem.css';;
 
-const CategoryItem = ({ src, name, brand }) => {
+const CategoryItem = ({ src, name, brand, score_avg }) => {
     return (
         <div className="desktopCategoryItemOuter">
-            <div className="desktopCategoryItemMatch">
-                <p>77%</p>
+            <div className="desktopCategoryItemMatch" style={score_avg ? {} : {display: "none"}}>
+                <p>{parseInt(score_avg * 100)}%</p>
             </div>
             <img className="desktopCategoryItemSrc" src={src}  alt=""/>
             <p className="desktopCategoryName">{name}</p>
