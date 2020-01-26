@@ -1,5 +1,5 @@
 import React from 'react';
-import './CategoryItem.css';;
+import './CategoryItem.css';
 
 const CategoryItem = ({ src, name, brand, score_avg }) => {
     return (

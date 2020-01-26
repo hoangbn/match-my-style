@@ -4,7 +4,7 @@ from utils import to_gcs_uri
 
 prodSet_to_prods = {}
 LOCATION = 'us-east1'
-PROJECT_ID =  'matchmystyle'
+PROJECT_ID = 'matchmystyle'
 CATEGORY = "apparel-v2"
 GCS_LINK = ""
 data = {
@@ -168,7 +168,7 @@ def add_product_to_product_set(project_id, location, product_id, product_set_id)
     # Add the product to the product set.
     client.add_product_to_product_set(
         name=product_set_path, product=product_path)
-    prodSet_to_prods[product_set_id].append(product_id)
+    # prodSet_to_prods[product_set_id].append(product_id)
 
     print('Product added to product set.')
 
@@ -464,28 +464,36 @@ def purge_products_in_product_set(project_id, location, product_set_id, force):
     print('Deleted products in product set.')
 
 
-iid = 10
+iid = 10000
 shirtSetId = "121212"
 pantSetId = "1212123"
 
 def get_most_similar(threshold, user_shirts, user_pants):
     global iid
     threshold = float(threshold)
+    print(user_shirts)
+    print(user_pants)
     # create_product_set(PROJECT_ID, LOCATION, shirtSetId, "shirts")
     # create_product_set(PROJECT_ID, LOCATION, pantSetId, "pants")
-    # for shirt in data["shirts"]:
-    #     create_product(PROJECT_ID, LOCATION, str(iid), shirt["name"], CATEGORY)
-    #     create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid + 1), shirt["uri"])
-    #     add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), shirtSetId)
-    #     iid += 2
-    # for pant in data["pants"]:
-    #     create_product(PROJECT_ID, LOCATION, str(iid), pant["name"], CATEGORY)
-    #     create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid + 1), pant["uri"])
-    #     add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), pantSetId)
-    #     iid += 2
+    for shirt in data["shirts"]:
+        try:
+            create_product(PROJECT_ID, LOCATION, str(iid), shirt["name"], CATEGORY)
+            create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid + 1), shirt["uri"])
+            add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), shirtSetId)
+            iid += 2
+        except:
+            pass
+    for pant in data["pants"]:
+        try:
+            create_product(PROJECT_ID, LOCATION, str(iid), pant["name"], CATEGORY)
+            create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid + 1), pant["uri"])
+            add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), pantSetId)
+            iid += 2
+        except:
+            pass
     # loop through user data GC links and get similar products in catalog and record similarity score
-    for url in user_shirts:  # loop through shirts
-        uri = to_gcs_uri(url)
+    for uri in user_shirts:  # loop through shirts
+        # uri = to_gcs_uri(url)
         rs = get_similar_products_uri(PROJECT_ID, LOCATION, shirtSetId, CATEGORY, uri, "")
         for r in rs:
             for shirt in data["shirts"]:
@@ -494,8 +502,8 @@ def get_most_similar(threshold, user_shirts, user_pants):
                         shirt["score"] = []
                     shirt["score"].append(r.score)
                     break
-    for url in user_pants:  # loop through pants
-        uri = to_gcs_uri(url)
+    for uri in user_pants:  # loop through pants
+        # uri = to_gcs_uri(url)
         rs = get_similar_products_uri(PROJECT_ID, LOCATION, pantSetId, CATEGORY, uri, "")
         for r in rs:
             for pant in data["pants"]:

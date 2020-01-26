@@ -7,7 +7,7 @@ from firebase_admin import credentials, initialize_app, firestore, storage
 from flask import Flask, request, jsonify
 
 from utils import valid_input
-from similary_finder import purge_products, get_most_similar
+from similary_finder import purge_products, get_most_similar, list_product_sets, list_products
 
 app = Flask(__name__)
 
@@ -99,3 +99,10 @@ def get_similar(username, threshold):
 def purge_products_ml():
     purge_products()
     return jsonify("purged")
+
+
+@app.route("/list")
+def a():
+    list_product_sets('matchmystyle', 'us-east1')
+    list_products('matchmystyle', 'us-east1')
+    return "bo"

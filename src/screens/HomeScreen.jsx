@@ -14,6 +14,7 @@ const HomeScreen = () => {
     const [filteredCatalog, setFilteredCatalog] = useState(catalogData);
 
     const reloadStyles = async (value) => {
+
         console.log(`reloading styles with ${value}% style match`);
         try {
             const data = await UserService.getMostSimilar(USERNAME, value);
