@@ -132,64 +132,6 @@ def create_reference_image(project_id, location, product_id, reference_image_id,
     print('Reference image name: {}'.format(image.name))
     print('Reference image uri: {}'.format(image.uri))
 
-
-    """Search similar products to image.
-    Args:
-        project_id: Id of the project.
-        location: A compute region name.
-        product_set_id: Id of the product set.
-        product_category: Category of the product.
-        file_path: Local file path of the image to be searched.
-        filter: Condition to be applied on the labels.
-        Example for filter: (color = red OR color = blue) AND style = kids
-        It will search on all products with the following labels:
-        color:red AND style:kids
-        color:blue AND style:kids
-    """
-    # product_search_client is needed only for its helper methods.
-    product_search_client = vision.ProductSearchClient()
-    image_annotator_client = vision.ImageAnnotatorClient()
-
-    # Create annotate image request along with product search feature.
-    image_source = vision.types.ImageSource(image_uri=image_uri)
-    image = vision.types.Image(source=image_source)
-
-    # product search specific parameters
-    product_set_path = product_search_client.product_set_path(
-        project=project_id, location=location,
-        product_set=product_set_id)
-    product_search_params = vision.types.ProductSearchParams(
-        product_set=product_set_path,
-        product_categories=[product_category],
-        filter=filter)
-    image_context = vision.types.ImageContext(
-        product_search_params=product_search_params)
-
-    # Search products similar to the image.
-    response = image_annotator_client.product_search(
-        image, image_context=image_context)
-
-    index_time = response.product_search_results.index_time
-    print('Product set index time:')
-    print('  seconds: {}'.format(index_time.seconds))
-    print('  nanos: {}\n'.format(index_time.nanos))
-
-    results = response.product_search_results.results
-
-    print('Search results:')
-    for result in results:
-        product = result.product
-
-        print('Score(Confidence): {}'.format(result.score))
-        print('Image name: {}'.format(result.image))
-
-        print('Product name: {}'.format(product.name))
-        print('Product display name: {}'.format(
-            product.display_name))
-        print('Product description: {}\n'.format(product.description))
-        print('Product labels: {}\n'.format(product.product_labels))
-
-
 def cleanProductIds(project_id, location, product_id):
     client = vision.ProductSearchClient()
 
@@ -286,24 +228,25 @@ iid=3
 
 @app.route("/getSimilar")
 def get_most_similar():
-    threshold = request.args.get("percentage")
-    data = request.json
-    create_product_set(PROJECT_ID, LOCATION, "1", "shirts")
-    create_product_set(PROJECT_ID, LOCATION, "2", "pants")
-    for uri in range(3): # loop through shirts in user data
-        create_product(PROJECT_ID, LOCATION, str(iid), "name", CATEGORY)
-        create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid+1), uri)
-        add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), "1")
-        iid+=2
-    for uri in range(3): # loop through pants in user data
-        create_product(PROJECT_ID, LOCATION, str(iid), "name", CATEGORY)
-        create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid+1), uri)
-        add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), "2")
-        iid+=2    
-    for shirt in data["shirts"]:
-        get_similar_products_uri(PROJECT_ID, LOCATION, "1", CATEGORY, shirt["src"], "")
-    for pant in data["pants"]:
-        get_similar_products_uri(PROJECT_ID, LOCATION, "2", CATEGORY, pant["src"], "")
+
+    # threshold = request.args.get("percentage")
+    # data = request.json
+    # create_product_set(PROJECT_ID, LOCATION, "1", "shirts")
+    # create_product_set(PROJECT_ID, LOCATION, "2", "pants")
+    # for uri in range(3): # loop through shirts in user data
+    #     create_product(PROJECT_ID, LOCATION, str(iid), "name", CATEGORY)
+    #     create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid+1), uri)
+    #     add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), "1")
+    #     iid+=2
+    # for uri in range(3): # loop through pants in user data
+    #     create_product(PROJECT_ID, LOCATION, str(iid), "name", CATEGORY)
+    #     create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid+1), uri)
+    #     add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), "2")
+    #     iid+=2    
+    # for shirt in data["shirts"]:
+    #     get_similar_products_uri(PROJECT_ID, LOCATION, "1", CATEGORY, shirt["src"], "")
+    # for pant in data["pants"]:
+    #     get_similar_products_uri(PROJECT_ID, LOCATION, "2", CATEGORY, pant["src"], "")
 
     #     create_product(PROJECT_ID, LOCATION, iid, shirt["name"], shirt["brand"])
     #     create_reference_image(PROJECT_ID, LOCATION, iid, )
@@ -314,15 +257,21 @@ def get_most_similar():
 
     
     create_product_set(PROJECT_ID, LOCATION, '121212', 'shirts')
-    create_product_set(PROJECT_ID, LOCATION, '1212123', 'pants')
-    create_product(PROJECT_ID, LOCATION, 'del', 'shirt1', 'apparel-v2')
-    create_product(PROJECT_ID, LOCATION, 'del2', 'shirt1', 'apparel-v2')
-    add_product_to_product_set(PROJECT_ID, LOCATION, 'del', '121212')
-    add_product_to_product_set(PROJECT_ID, LOCATION, 'del2', '1212123')
+    # create_product_set(PROJECT_ID, LOCATION, '1212123', 'pants')
+    # create_product(PROJECT_ID, LOCATION, 'del', 'shirt1', 'apparel-v2')
+    # create_product(PROJECT_ID, LOCATION, 'del2', 'pant1', 'apparel-v2')    
+    # add_product_to_product_set(PROJECT_ID, LOCATION, 'del', '121212')
+    # add_product_to_product_set(PROJECT_ID, LOCATION, 'del2', '1212123')
+    # create_reference_image(PROJECT_ID, LOCATION, 'del', 'bruh1', 'gs://matchmystyle-vcm/shirts/22756272_SearchResults.jpg')
+    # create_reference_image(PROJECT_ID, LOCATION, 'del', 'bruh2', 'gs://matchmystyle-vcm/shirts/KIC_125-9156-0996-201_prod1(1).jpg')
+    # create_reference_image(PROJECT_ID, LOCATION, 'del2', 'bruh3', 'gs://matchmystyle-vcm/pants/hmgoepprod.jfif')
+    # create_reference_image(PROJECT_ID, LOCATION, 'del2', 'bruh4', 'gs://matchmystyle-vcm/pants/hmgoepprod(1).jfif')
+
+    # get_similar_products_uri(PROJECT_ID, LOCATION, 'shirts', CATEGORY, 
+    #     'https://media.cyrillus.com/Pictures/cyrillus/66834/mens-regular-fit-solid-colour-linen-shirt.jpg?width=542', '')
     cleanAll(PROJECT_ID, LOCATION)
     global prodSet_to_prods
     prodSet_to_prods = {}
-
     return 'hey heyyyyyyy babuu frick'
 
 
