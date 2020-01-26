@@ -292,12 +292,12 @@ def get_most_similar():
     create_product_set(PROJECT_ID, LOCATION, "2", "pants")
     for uri in range(3): # loop through shirts in user data
         create_product(PROJECT_ID, LOCATION, str(iid), "name", CATEGORY)
-        create_reference_image(PROJECT_ID, LOCAtiON, str(iid), str(iid+1), uri)
+        create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid+1), uri)
         add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), "1")
         iid+=2
     for uri in range(3): # loop through pants in user data
         create_product(PROJECT_ID, LOCATION, str(iid), "name", CATEGORY)
-        create_reference_image(PROJECT_ID, LOCAtiON, str(iid), str(iid+1), uri)
+        create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid+1), uri)
         add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), "2")
         iid+=2    
     for shirt in data["shirts"]:
