@@ -469,6 +469,7 @@ shirtSetId = "121212"
 pantSetId = "1212123"
 
 def get_most_similar(threshold, user_shirts, user_pants):
+    global iid
     for shirt in data["shirts"]:
         create_product(PROJECT_ID, LOCATION, str(iid), shirt["name"], CATEGORY)
         create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid + 1), shirt["uri"])

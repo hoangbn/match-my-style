@@ -86,12 +86,8 @@ def add_shirts(username):
     return add_item(username, "shirts", request.files["file"])
 
 
-@app.route('/users/<username>/SimilarityScore', methods=['POST'])
-def get_similar(username):
-    request_body = request.get_json()
-    if "threshold" not in request_body:
-        return jsonify("file missing threshold"), HTTPStatus.BAD_REQUEST
-    threshold = request.get("threshold")
+@app.route('/users/<username>/getSimilarityScore/<threshold>', methods=['GET'])
+def get_similar(username, threshold):
     doc_ref = db.collection(USERS).document(username)
     doc = doc_ref.get().to_dict()
     if doc is None:

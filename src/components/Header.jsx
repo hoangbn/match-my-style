@@ -22,7 +22,6 @@ const useStyles = makeStyles({
 });
 
 const Header = ({ reloadStyles }) => {
-    // const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
 
     // https://material-ui.com/components/slider/
     const classes = useStyles();
@@ -56,14 +55,6 @@ const Header = ({ reloadStyles }) => {
             setValue(100);
         }
     };
-
-    // if (isMobile) {
-    //     return (
-    //         <div>
-
-    //         </div>
-    //     );
-    // }
 
     return (
         <div className="desktopHeader">
@@ -112,6 +103,6 @@ const Header = ({ reloadStyles }) => {
             </div>
         </div>
     );
-}
+};
 
 export default Header;
