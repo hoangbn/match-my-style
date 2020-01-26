@@ -4,8 +4,41 @@
     margin-bottom: 25px;
 }
 
+.desktopCategoryName {
+    margin: 0px;
+    font-family: 'Futura-Medium';
+    font-size: 20px;
+    color: #5A5A5A;
+}
+
+.desktopCategoryBrand {
+    margin: 0px;
+    font-family: 'Futura-Medium-Italic';
+    font-size: 14px;
+    color: #A3A3A3;
+}
+
 .desktopCategoryItemSrc {
     height: 300px;
     width: 250px;
     margin-right: 50px;
+}
+
+.desktopCategoryItemMatch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    left: 225px;
+    bottom: 425px;
+    background-color: #30C2D6;
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+}
+
+.desktopCategoryItemMatch > p {
+    font-family: 'Futura-Medium';
+    font-size: 16px;
+    color: #fff;
 }

@@ -5,8 +5,11 @@ const CategoryItem = ({ src, name, brand }) => {
     return (
         <div className="desktopCategoryItemOuter">
             <img className="desktopCategoryItemSrc" src={src} />
-            <p>{name}</p>
-            <p>{brand}</p>
+            <p className="desktopCategoryName">{name}</p>
+            <p className="desktopCategoryBrand">{brand}</p>
+            <div className="desktopCategoryItemMatch">
+                <p>77%</p>
+            </div>
         </div>
     );
 };
