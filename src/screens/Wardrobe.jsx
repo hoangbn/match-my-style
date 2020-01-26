@@ -3,7 +3,6 @@ import UserService from "../services/UserService";
 import { useAlert } from "react-alert";
 import {Header} from "../components";
 import CategorySectionIterator from "../containers/CategorySectionIterator";
-import {catalogData} from "../catalogData";
 import {Subheader} from "../components/Subheader";
 
 // hardcoded username for now
@@ -23,8 +22,8 @@ export const Wardrobe = () => {
                 console.error(e);
             }
         };
-        getUserItems().then(r => {});
-    });
+        getUserItems();
+    }, []);
 
     return (
         <>

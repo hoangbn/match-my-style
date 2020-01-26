@@ -1,23 +1,15 @@
 import React from 'react';
 import './CategorySection.css';
-import { useMediaQuery } from 'react-responsive';
 import CategoryItem from '../components/CategoryItem';
 import ScrollableAnchor from 'react-scrollable-anchor';
 
 const CategorySection = ({ categoryName, categoryData }) => {
-    // const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
-
-    // if (isMobile) {
-    //     return (
-    //         <div></div>
-    //     )
-    // }
 
     const renderCategoryItems = () => {
         return categoryData.map((categoryItemData) => {
-            const src = categoryItemData.src;
+            const src = categoryItemData.src ? categoryItemData.src : categoryItemData;
             const brand = categoryItemData.brand;
-            const name = categoryItemData.name ? categoryItemData.data : categoryItemData;
+            const name = categoryItemData.name;
             return <CategoryItem key={name} src={src} name={name} brand={brand} />;
         });
     };
