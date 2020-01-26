@@ -334,7 +334,6 @@ def get_most_similar():
         data["pants"][i]["score"] = mean(data["pants"][i]["score"])
         if data["pants"][i]["score"] < threshold:
             del data["pants"][i]
-    
     return jsonify(data)
     
     # try:
