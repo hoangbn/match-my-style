@@ -2,6 +2,7 @@ import uuid
 import datetime
 from http import HTTPStatus
 from google.cloud.firestore_v1.client import Client
+
 from firebase_admin import credentials, initialize_app, firestore, storage
 from flask import Flask, request, jsonify
 
@@ -33,14 +34,14 @@ def upload_file(file, cloud_path):
     return image_blob.generate_signed_url(datetime.timedelta(days=365))
 
 
-def add_item(username, type, file):
+def add_item(username, item_type, file):
     doc_ref = db.collection(USERS).document(username)
     doc = doc_ref.get().to_dict()
     if doc_ref.get().to_dict() is None:
         return jsonify("use do"
                        "es not exist"), HTTPStatus.NOT_FOUND
-    image_link = upload_file(file, f"{USERS}/{username}/{type}/{str(uuid.uuid4())}.jpg")
-    doc[type].append(image_link)
+    image_link = upload_file(file, f"{USERS}/{username}/{item_type}/{str(uuid.uuid4())}.jpg")
+    doc[item_type].append(image_link)
     doc_ref.update(doc)
     return jsonify(image_link), HTTPStatus.OK
 
