@@ -41,6 +41,26 @@ export const catalogData = {
             src: 'https://lp2.hm.com/hmgoepprod?set=source[/aa/30/aa30202e0074e5adfa8dc6e7f127c63c78f56857.jpg],origin[dam],category[men_trousers_trousers_skinny_all],type[DESCRIPTIVESTILLLIFE],hmver[1]&call=url[file:/product/main]',
             name: 'Twill Pants Skinny Fit',
             brand: 'H&M'
+        },
+        {
+            src: 'https://lp2.hm.com/hmgoepprod?set=source[/a4/d1/a4d14f0ad315aa0cda7574bc2fe028ab70c1ab2e.jpg],origin[dam],category[],type[DESCRIPTIVESTILLLIFE],hmver[1]&call=url[file:/product/main]',
+            name: 'Skinny Fit Cotton Chinos',
+            brand: 'H&M'
+        },
+        {
+            src: 'https://lp2.hm.com/hmgoepprod?set=source[/aa/30/aa30202e0074e5adfa8dc6e7f127c63c78f56857.jpg],origin[dam],category[men_trousers_trousers_skinny_all],type[DESCRIPTIVESTILLLIFE],hmver[1]&call=url[file:/product/main]',
+            name: 'Twill Pants Skinny Fit',
+            brand: 'H&M'
+        },
+        {
+            src: 'https://lp2.hm.com/hmgoepprod?set=source[/a4/d1/a4d14f0ad315aa0cda7574bc2fe028ab70c1ab2e.jpg],origin[dam],category[],type[DESCRIPTIVESTILLLIFE],hmver[1]&call=url[file:/product/main]',
+            name: 'Skinny Fit Cotton Chinos',
+            brand: 'H&M'
+        },
+        {
+            src: 'https://lp2.hm.com/hmgoepprod?set=source[/aa/30/aa30202e0074e5adfa8dc6e7f127c63c78f56857.jpg],origin[dam],category[men_trousers_trousers_skinny_all],type[DESCRIPTIVESTILLLIFE],hmver[1]&call=url[file:/product/main]',
+            name: 'Twill Pants Skinny Fit',
+            brand: 'H&M'
         }
     ]
 }
