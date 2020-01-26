@@ -1,12 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Route, Switch } from "react-router-dom";
 import HomeScreen from './screens/HomeScreen';
+import { Wardrobe } from "./screens/Wardrobe";
 
-export default class App extends Component {
-    render() {
-        return(
-            <div>
+export const App = () => {
+    return (
+        <Switch>
+            <Route path={"/home"}>
                 <HomeScreen />
-            </div>
-        );
-    }
+            </Route>
+            <Route path={"/my-wardrobe"}>
+                <Wardrobe />
+            </Route>
+        </Switch>
+    )
 };

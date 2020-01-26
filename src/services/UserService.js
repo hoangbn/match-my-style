@@ -16,7 +16,7 @@ export default class UserService {
      * @param username of user
      */
     static async getUserItems(username) {
-        return await axios.get(USERS_URL + "/" + username);
+        return (await axios.get(USERS_URL + "/" + username)).data;
     }
 
     /**
