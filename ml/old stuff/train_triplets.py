@@ -1,4 +1,6 @@
-import tensorflow as tf
+# import tensorflow as tf
+import tensorflow.compat.v1 as tf
+# tf.disable_eager_execution()
 from preprocessing import PreProcessing
 from model import TripletLoss
 
@@ -27,11 +29,15 @@ if __name__ == "__main__":
     positive_input = tf.placeholder(tf.float32, placeholder_shape, name='positive_input')
     negative_input = tf.placeholder(tf.float32, placeholder_shape, name='negative_input')
 
+    print("finished placeholders")
+
     margin = 0.5
     anchor_output = model.conv_net(anchor_input, reuse=False)
     positive_output = model.conv_net(positive_input, reuse=True)
     negative_output = model.conv_net(negative_input, reuse=True)
     loss = model.triplet_loss(anchor_output, positive_output, negative_output, margin)
+
+    print("finished calling model")
 
     # Setup Optimizer
     global_step = tf.Variable(0, trainable=False)
