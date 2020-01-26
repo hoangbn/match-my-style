@@ -3,7 +3,7 @@ from google.cloud import vision
 
 prodSet_to_prods = {}
 LOCATION = 'us-east1'
-PROJECT_ID =  'PROJECT_ID'
+PROJECT_ID =  'matchmystyle'
 CATEGORY = "apparel-v2"
 GCS_LINK = ""
 
@@ -18,7 +18,7 @@ app = Flask(__name__)
 #                 "pants": []
 #             }
 
-def create_product_set(project_id, location, product_set_id, product_set_display_name):
+def create_product_set(project_id, location, product_set_id1, product_set_display_name):
     """Create a product set.
     Args:
         project_id: Id of the project.
@@ -40,8 +40,8 @@ def create_product_set(project_id, location, product_set_id, product_set_display
     response = client.create_product_set(
         parent=location_path,
         product_set=product_set,
-        product_set_id=product_set_id)
-    prodSet_to_prods[product_set_id] = []
+        product_set_id=product_set_id1)
+    prodSet_to_prods[product_set_id1] = []
 
     # Display the product set information.
     print('Product set name: {}'.format(response.name))
