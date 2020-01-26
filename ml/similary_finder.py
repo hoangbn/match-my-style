@@ -1,6 +1,10 @@
 from flask import Flask, request, jsonify
 from google.cloud import vision
 
+prodSet_to_prods = {}
+LOCATION = 'us-east1'
+PROJECT_ID =  'matchmystyle'
+
 app = Flask(__name__)
 
 # user_data = {
@@ -35,6 +39,7 @@ def create_product_set(project_id, location, product_set_id, product_set_display
         parent=location_path,
         product_set=product_set,
         product_set_id=product_set_id)
+    prodSet_to_prods[product_set_id] = []
 
     # Display the product set information.
     print('Product set name: {}'.format(response.name))
@@ -92,6 +97,8 @@ def add_product_to_product_set(project_id, location, product_id, product_set_id)
     # Add the product to the product set.
     client.add_product_to_product_set(
         name=product_set_path, product=product_path)
+    prodSet_to_prods[product_set_id].append(product_id)
+
     print('Product added to product set.')
 
 
@@ -182,14 +189,54 @@ def get_similar_products_uri(project_id, location, product_set_id, product_categ
         print('Product labels: {}\n'.format(product.product_labels))
 
 
+def cleanProductIds(project_id, location, product_id):
+    client = vision.ProductSearchClient()
+
+    # Get the full path of the product.
+    product_path = client.product_path(
+        project=project_id, location=location, product=product_id)
+
+    # Delete a product.
+    client.delete_product(name=product_path)
+    print('Product deleted.')
+
+def cleanProductSets(project_id, location, product_set_id):
+    client = vision.ProductSearchClient()
+
+    # Get the full path of the product set.
+    product_set_path = client.product_set_path(
+        project=project_id, location=location,
+        product_set=product_set_id)
+
+    # Delete the product set.
+    client.delete_product_set(name=product_set_path)
+    print('Product set deleted.')
+
+def cleanAll(project_id, location):
+
+    # clean all prod_ids
+    for list in prodSet_to_prods.values():
+        for prod_ids in list:
+            cleanProductIds(project_id, location, prod_ids)
+    
+    # clean prod sets
+    for prod_sets in prodSet_to_prods:
+        cleanProductSets(project_id, location, prod_sets)
+    
+
 @app.route("/getSimilar")
 def get_most_similar():
     threshold = request.args.get("percentage")
     item = request.args.get("item")
 
-    create_product_set('matchmystyle', 'us-east1', '1212', 'shirts')
-    create_product('matchmystyle','us-east1', '12', 'shirt1', 'apparel-v2')
-    add_product_to_product_set('matchmystyle', 'us-east1', '12', '1212')
+    create_product_set(PROJECT_ID, LOCATION, '1212', 'shirts')
+    create_product_set(PROJECT_ID, LOCATION, '1213', 'pants')
+    create_product(PROJECT_ID, LOCATION, 'del', 'shirt1', 'apparel-v2')
+    create_product(PROJECT_ID, LOCATION, 'del2', 'shirt1', 'apparel-v2')
+    add_product_to_product_set(PROJECT_ID, LOCATION, 'del', '1212')
+    add_product_to_product_set(PROJECT_ID, LOCATION, 'del2', '1213')
+    cleanAll(PROJECT_ID, LOCATION)
+    prodSet_to_prods = {}
     return 'hello there'
 
 
