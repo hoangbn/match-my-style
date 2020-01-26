@@ -3,14 +3,14 @@ from google.cloud import vision
 
 app = Flask(__name__)
 
-user_data = {
-                "shirts": [], 
-                "pants": []
-            }
-cata_data = {
-                "shirts": [], 
-                "pants": []
-            }
+# user_data = {
+#                 "shirts": [], 
+#                 "pants": []
+#             }
+# cata_data = {
+#                 "shirts": [], 
+#                 "pants": []
+#             }
 
 def create_product_set(project_id, location, product_set_id, product_set_display_name):
     """Create a product set.
