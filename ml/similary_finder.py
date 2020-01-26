@@ -95,6 +95,93 @@ def add_product_to_product_set(project_id, location, product_id, product_set_id)
     print('Product added to product set.')
 
 
+def create_reference_image(project_id, location, product_id, reference_image_id, gcs_uri):
+    """Create a reference image.
+    Args:
+        project_id: Id of the project.
+        location: A compute region name.
+        product_id: Id of the product.
+        reference_image_id: Id of the reference image.
+        gcs_uri: Google Cloud Storage path of the input image.
+    """
+    client = vision.ProductSearchClient()
+
+    # Get the full path of the product.
+    product_path = client.product_path(
+        project=project_id, location=location, product=product_id)
+
+    # Create a reference image.
+    reference_image = vision.types.ReferenceImage(uri=gcs_uri)
+
+    # The response is the reference image with `name` populated.
+    image = client.create_reference_image(
+        parent=product_path,
+        reference_image=reference_image,
+        reference_image_id=reference_image_id)
+
+    # Display the reference image information.
+    print('Reference image name: {}'.format(image.name))
+    print('Reference image uri: {}'.format(image.uri))
+
+
+def get_similar_products_uri(project_id, location, product_set_id, product_category, image_uri, filter):
+    """Search similar products to image.
+    Args:
+        project_id: Id of the project.
+        location: A compute region name.
+        product_set_id: Id of the product set.
+        product_category: Category of the product.
+        file_path: Local file path of the image to be searched.
+        filter: Condition to be applied on the labels.
+        Example for filter: (color = red OR color = blue) AND style = kids
+        It will search on all products with the following labels:
+        color:red AND style:kids
+        color:blue AND style:kids
+    """
+    # product_search_client is needed only for its helper methods.
+    product_search_client = vision.ProductSearchClient()
+    image_annotator_client = vision.ImageAnnotatorClient()
+
+    # Create annotate image request along with product search feature.
+    image_source = vision.types.ImageSource(image_uri=image_uri)
+    image = vision.types.Image(source=image_source)
+
+    # product search specific parameters
+    product_set_path = product_search_client.product_set_path(
+        project=project_id, location=location,
+        product_set=product_set_id)
+    product_search_params = vision.types.ProductSearchParams(
+        product_set=product_set_path,
+        product_categories=[product_category],
+        filter=filter)
+    image_context = vision.types.ImageContext(
+        product_search_params=product_search_params)
+
+    # Search products similar to the image.
+    response = image_annotator_client.product_search(
+        image, image_context=image_context)
+
+    index_time = response.product_search_results.index_time
+    print('Product set index time:')
+    print('  seconds: {}'.format(index_time.seconds))
+    print('  nanos: {}\n'.format(index_time.nanos))
+
+    results = response.product_search_results.results
+
+    print('Search results:')
+    for result in results:
+        product = result.product
+
+        print('Score(Confidence): {}'.format(result.score))
+        print('Image name: {}'.format(result.image))
+
+        print('Product name: {}'.format(product.name))
+        print('Product display name: {}'.format(
+            product.display_name))
+        print('Product description: {}\n'.format(product.description))
+        print('Product labels: {}\n'.format(product.product_labels))
+
+
 @app.route("/getSimilar")
 def get_most_similar():
     threshold = request.args.get("percentage")
