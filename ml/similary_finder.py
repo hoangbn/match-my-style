@@ -2,8 +2,23 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-@app.route("/")
+user_data = {
+                "shirts": [], 
+                "pants": []
+            }
+cata_data = {
+                "shirts": [], 
+                "pants": []
+            }
+
+def 
+
+@app.route("/getSimilar")
 def get_most_similar():
-    cont = request.json
-    for url in cont:
-        pass
+    threshold = request.args.get("percentage")
+
+
+
+if __name__ == '__main__':
+    
+    app.run()
