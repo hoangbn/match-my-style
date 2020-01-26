@@ -24,8 +24,8 @@
 }
 
 .desktopCategoryItemSrc {
-    height: 300px;
-    width: 250px;
+    height: 285px;
+    width: 240px;
 }
 
 .desktopCategoryItemMatch {
@@ -33,8 +33,8 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    left: 225px;
-    bottom: 360px;
+    left: 215px;
+    bottom: 370px;
     background-color: #30C2D6;
     height: 50px;
     width: 50px;
