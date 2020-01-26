@@ -18,7 +18,6 @@ const HomeScreen = () => {
         try {
             const data = await UserService.getMostSimilar(USERNAME, value);
             setFilteredCatalog(data);
-            console.log(data);
         } catch (e) {
             alert.error("Failed to load data");
             console.error(e);

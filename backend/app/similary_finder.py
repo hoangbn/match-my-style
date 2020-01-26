@@ -470,6 +470,7 @@ pantSetId = "1212123"
 
 def get_most_similar(threshold, user_shirts, user_pants):
     global iid
+    threshold = float(threshold)
     # create_product_set(PROJECT_ID, LOCATION, shirtSetId, "shirts")
     # create_product_set(PROJECT_ID, LOCATION, pantSetId, "pants")
     # for shirt in data["shirts"]:
@@ -510,13 +511,13 @@ def get_most_similar(threshold, user_shirts, user_pants):
     new_pants = []
     for i in range(len(data["shirts"])):
         if "score" in data["shirts"][i]:
-            data["shirts"][i]["score"] = sum(data["shirts"][i]["score"]) / len(data["shirts"][i]["score"])
-            if data["shirts"][i]["score"] >= threshold:
+            data["shirts"][i]["score_avg"] = sum(data["shirts"][i]["score"]) / len(data["shirts"][i]["score"])
+            if data["shirts"][i]["score_avg"] * 100 >= threshold:
                 new_shirts.append(data["shirts"][i])
     for i in range(len(data["pants"])):
         if "score" in data["pants"][i]:
-            data["pants"][i]["score"] = sum(data["pants"][i]["score"]) / len(data["pants"][i]["score"])
-            if data["pants"][i]["score"] >= threshold:
+            data["pants"][i]["score_avg"] = sum(data["pants"][i]["score"]) / len(data["pants"][i]["score"])
+            if data["pants"][i]["score_avg"] * 100 >= threshold:
                 new_shirts.append(data["pants"][i])
     return jsonify({"shirts": new_shirts, "pants": new_pants})
 
