@@ -1,7 +1,7 @@
 .desktopCategoryItemOuter {
     display: flex;
     flex-direction: column;
-    margin-bottom: 25px;
+    margin-bottom: 0px;
     margin-right: 75px;
 }
 
@@ -11,6 +11,7 @@
     font-size: 20px;
     color: #5A5A5A;
     text-align: center;
+    width: 240px;
 }
 
 .desktopCategoryBrand {

@@ -1,7 +1,7 @@
 .desktopCategoryOuter {
     display: flex;
     flex-direction: column;
-    margin-bottom: 25px;
+    margin-bottom: 50px;
 }
 
 .desktopCategoryTitle {
@@ -14,7 +14,6 @@
 .desktopCategoryItemRow {
     display: flex;
     flex-direction: row;
-    margin-top: 25px;
     margin-left: 50px;
     flex-wrap: wrap;
 }
