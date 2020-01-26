@@ -1,5 +1,4 @@
-from flask import jsonify
-from http import HTTPStatus
+from urllib.parse import urlparse
 
 
 def valid_input(request_body: dict, needed_keys: list):
@@ -7,3 +6,7 @@ def valid_input(request_body: dict, needed_keys: list):
         if key not in request_body:
             return False
     return True
+
+
+def to_gcs_uri(url):
+    return "gs:/" + urlparse(url).path
