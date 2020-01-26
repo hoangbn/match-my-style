@@ -26,28 +26,28 @@ const CategorySectionIterator = () => {
             let defaultTextStyle = {
                 textDecoration: 'none',
                 fontFamily: 'Futura-Medium',
-                fontSize: 24,
+                fontSize: 18,
                 color: '#A3A3A3'
             };
 
             let selectedTextStyle = {
                 textDecoration: 'none',
                 fontFamily: 'Futura-Medium',
-                fontSize: 24,
+                fontSize: 18,
                 color: '#30C2D6'
             };
 
             let defaultBubbleStyle = {
-                height: 25,
-                width: 25,
+                height: 15,
+                width: 15,
                 borderRadius: 25,
                 backgroundColor: '#A3A3A3'
             };
 
             let selectedBubbleStyle = {
                 bottom: 25,
-                height: 25,
-                width: 25,
+                height: 15,
+                width: 15,
                 borderRadius: 25,
                 backgroundColor: '#30C2D6'
             };

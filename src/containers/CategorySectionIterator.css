@@ -10,11 +10,12 @@
     justify-content: space-between;
     position: fixed;
     height: 250px;
-    width: 50px;
+    width: 30px;
     top: 35vh;
     right: 0;
     border-radius: 10px;
     background-color: #E5E5E5;
+    opacity: 1;
     margin-right: 35px;
 }
 
@@ -26,7 +27,7 @@
 
 .desktopScrollBarSections {
     position: relative;
-    right: 75px;
+    right: 60px;
 }
 
 .desktopScrollBarBubbles {
@@ -35,5 +36,5 @@
     justify-content: center;
     align-items: center;
     height: 100%;
-    right: 45px;
+    right: 36px;
 }
