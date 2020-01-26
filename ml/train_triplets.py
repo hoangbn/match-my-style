@@ -10,7 +10,8 @@ flags.DEFINE_integer('step', 50, 'Save after ... iteration')
 flags.DEFINE_float('learning_rate','0.01','Learning rate')
 flags.DEFINE_float('momentum','0.99', 'Momentum')
 flags.DEFINE_string('model', 'conv_net', 'model to run')
-flags.DEFINE_string('data_src', './data_repository/geological_similarity/', 'source of training dataset')
+# flags.DEFINE_string('data_src', './data_repository/geological_similarity/', 'source of training dataset')
+flags.DEFINE_string('data_src', './images/', 'source of training dataset')
 
 if __name__ == "__main__":
 
@@ -62,6 +63,6 @@ if __name__ == "__main__":
             print("\r#%d - Loss" % i, l)
 
             if (i + 1) % FLAGS.step == 0:
-                saver.save(sess, "model_triplet/model.ckpt")
-        saver.save(sess, "model_triplet/model.ckpt")
+                saver.save(sess, "my_model_triplet/model.ckpt")
+        saver.save(sess, "my_model_triplet/model.ckpt")
     print('Training completed successfully.')

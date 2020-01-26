@@ -14,7 +14,7 @@ class PreProcessing:
 
     def __init__(self,data_src):
         self.data_src = data_src
-        print("Loading Geological Similarity Dataset...")
+        print("Loading Dataset...")
         self.images_train, self.images_test, self.labels_train, self.labels_test = self.preprocessing(0.9)
         self.unique_train_label = np.unique(self.labels_train)
         self.map_train_label_indices = {label: np.flatnonzero(self.labels_train == label) for label in
