@@ -211,6 +211,7 @@ def get_similar_products_uri(project_id, location, product_set_id, product_categ
     results = response.product_search_results.results
 
     print('Search results:')
+    print (results)
     for result in results:
         product = result.product
 
