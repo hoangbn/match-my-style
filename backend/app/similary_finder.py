@@ -470,16 +470,18 @@ pantSetId = "1212123"
 
 def get_most_similar(threshold, user_shirts, user_pants):
     global iid
-    for shirt in data["shirts"]:
-        create_product(PROJECT_ID, LOCATION, str(iid), shirt["name"], CATEGORY)
-        create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid + 1), shirt["uri"])
-        add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), shirtSetId)
-        iid += 2
-    for pant in data["pants"]:
-        create_product(PROJECT_ID, LOCATION, str(iid), pant["name"], CATEGORY)
-        create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid + 1), pant["uri"])
-        add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), pantSetId)
-        iid += 2
+    # create_product_set(PROJECT_ID, LOCATION, shirtSetId, "shirts")
+    # create_product_set(PROJECT_ID, LOCATION, pantSetId, "pants")
+    # for shirt in data["shirts"]:
+    #     create_product(PROJECT_ID, LOCATION, str(iid), shirt["name"], CATEGORY)
+    #     create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid + 1), shirt["uri"])
+    #     add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), shirtSetId)
+    #     iid += 2
+    # for pant in data["pants"]:
+    #     create_product(PROJECT_ID, LOCATION, str(iid), pant["name"], CATEGORY)
+    #     create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid + 1), pant["uri"])
+    #     add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), pantSetId)
+    #     iid += 2
     # loop through user data GC links and get similar products in catalog and record similarity score
     for url in user_shirts:  # loop through shirts
         uri = to_gcs_uri(url)
@@ -503,15 +505,20 @@ def get_most_similar(threshold, user_shirts, user_pants):
                     break
     # get the average score, delete if not above threshold
     # TODO: make better algorithm to summarize the scores
+
+    new_shirts = []
+    new_pants = []
     for i in range(len(data["shirts"])):
-        data["shirts"][i]["score"] = sum(data["shirts"][i]["score"]) / len(data["shirts"][i]["score"])
-        if data["shirts"][i]["score"] < threshold:
-            del data["shirts"][i]
+        if "score" in data["shirts"][i]:
+            data["shirts"][i]["score"] = sum(data["shirts"][i]["score"]) / len(data["shirts"][i]["score"])
+            if data["shirts"][i]["score"] >= threshold:
+                new_shirts.append(data["shirts"][i])
     for i in range(len(data["pants"])):
-        data["pants"][i]["score"] = sum(data["pants"][i]["score"]) / len(data["pants"][i]["score"])
-        if data["pants"][i]["score"] < threshold:
-            del data["pants"][i]
-    return jsonify(data)
+        if "score" in data["pants"][i]:
+            data["pants"][i]["score"] = sum(data["pants"][i]["score"]) / len(data["pants"][i]["score"])
+            if data["pants"][i]["score"] >= threshold:
+                new_shirts.append(data["pants"][i])
+    return jsonify({"shirts": new_shirts, "pants": new_pants})
 
 
 def purge_products():
