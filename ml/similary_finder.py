@@ -3,7 +3,9 @@ from google.cloud import vision
 
 prodSet_to_prods = {}
 LOCATION = 'us-east1'
-PROJECT_ID =  'matchmystyle'
+PROJECT_ID =  'PROJECT_ID'
+CATEGORY = "apparel-v2"
+GCS_LINK = ""
 
 app = Flask(__name__)
 
@@ -222,7 +224,7 @@ def cleanAll(project_id, location):
     for prod_sets in prodSet_to_prods:
         cleanProductSets(project_id, location, prod_sets)
     
-def get_similar_products_file(project_id, location, product_set_id, product_category, file_path, filter):
+def get_similar_products_uri(project_id, location, product_set_id, product_category, image_uri, filter):
     """Search similar products to image.
     Args:
         project_id: Id of the project.
@@ -240,12 +242,9 @@ def get_similar_products_file(project_id, location, product_set_id, product_cate
     product_search_client = vision.ProductSearchClient()
     image_annotator_client = vision.ImageAnnotatorClient()
 
-    # Read the image as a stream of bytes.
-    with open(file_path, 'rb') as image_file:
-        content = image_file.read()
-
     # Create annotate image request along with product search feature.
-    image = vision.types.Image(content=content)
+    image_source = vision.types.ImageSource(image_uri=image_uri)
+    image = vision.types.Image(source=image_source)
 
     # product search specific parameters
     product_set_path = product_search_client.product_set_path(
@@ -281,21 +280,36 @@ def get_similar_products_file(project_id, location, product_set_id, product_cate
             product.display_name))
         print('Product description: {}\n'.format(product.description))
         print('Product labels: {}\n'.format(product.product_labels))
+    return result
 
 iid=3
 
 @app.route("/getSimilar")
 def get_most_similar():
-    # threshold = request.args.get("percentage")
-    # data = request.json
-    # create_product_set("matchmystyle", "us-east1", "1", "shirts")
-    # create_product_set("matchmystyle", "us-east1", "2", "pants")
-    # for shirt in data["shirts"]:
-    #     create_product("matchmystyle", "us-east1", iid, shirt["name"], shirt["brand"])
-    #     create_reference_image("matchmystyle", "us-east1", iid, )
+    threshold = request.args.get("percentage")
+    data = request.json
+    create_product_set(PROJECT_ID, LOCATION, "1", "shirts")
+    create_product_set(PROJECT_ID, LOCATION, "2", "pants")
+    for uri in range(3): # loop through shirts in user data
+        create_product(PROJECT_ID, LOCATION, str(iid), "name", CATEGORY)
+        create_reference_image(PROJECT_ID, LOCAtiON, str(iid), str(iid+1), uri)
+        add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), "1")
+        iid+=2
+    for uri in range(3): # loop through pants in user data
+        create_product(PROJECT_ID, LOCATION, str(iid), "name", CATEGORY)
+        create_reference_image(PROJECT_ID, LOCAtiON, str(iid), str(iid+1), uri)
+        add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), "2")
+        iid+=2    
+    for shirt in data["shirts"]:
+        get_similar_products_uri(PROJECT_ID, LOCATION, "1", CATEGORY, shirt["src"], "")
+    for pant in data["pants"]:
+        get_similar_products_uri(PROJECT_ID, LOCATION, "2", CATEGORY, pant["src"], "")
+
+    #     create_product(PROJECT_ID, LOCATION, iid, shirt["name"], shirt["brand"])
+    #     create_reference_image(PROJECT_ID, LOCATION, iid, )
     #     iid+=1
     # for pant in data["pants"]:
-    #     create_product("matchmystyle", "us-east1", iid, pant["name"], pant["brand"])
+    #     create_product(PROJECT_ID, LOCATION, iid, pant["name"], pant["brand"])
     #     iid+=1
 
     
