@@ -1,21 +1,20 @@
 import React, { useEffect } from 'react';
-import { catalogData, getCategoryUrls } from '../catalogData';   // REPLACE WITH API FETCH
 import CategorySection from './CategorySection';
 import './CategorySectionIterator.css';
 
-const CategorySectionIterator = () => {
+const CategorySectionIterator = ({ itemsData }) => {
     const [selectedCategory, setSelectedCategory] = React.useState('');
     useEffect(() => {
         setSelectedCategory(window.location.hash);
     }, []);
 
-    const categories = Object.keys(catalogData);
+    const categories = Object.keys(itemsData);
     const renderSections = () => {
-        return categories.map((categoryName) => {
+        return categories.map((categoryName ) => {
             return <CategorySection key={categoryName} categoryName={categoryName}
-                categoryData={catalogData[categoryName]} />;
+                categoryData={itemsData[categoryName]} />;
         });
-    }
+    };
 
     window.addEventListener("hashchange", function(e) {
         setSelectedCategory(window.location.hash);
@@ -59,7 +58,7 @@ const CategorySectionIterator = () => {
                         {categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}
                     </p>
                     <div className="desktopScrollBarBubbles">
-                        <div style={selectedCategory === `#${categoryName}` ? selectedBubbleStyle : defaultBubbleStyle } />
+                        <div style={selectedCategory === `#${categoryName}` ? selectedBubbleStyle : defaultBubbleStyle} />
                     </div>
                 </a>
             );

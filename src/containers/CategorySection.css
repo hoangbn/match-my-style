@@ -5,12 +5,10 @@
 }
 
 .desktopCategoryTitle {
-    font-family: 'Futura-Medium';
+    font-family: 'Futura-Medium', sans-serif;
     font-size: 36px;
     color: #30C2D6;
-    margin: 0px;
-    margin-top: 10px;
-    margin-left: 50px;
+    margin: 10px 0 0 50px;
 }
 
 .desktopCategoryItemRow {

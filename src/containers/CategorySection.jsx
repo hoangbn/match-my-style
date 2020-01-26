@@ -15,9 +15,9 @@ const CategorySection = ({ categoryName, categoryData }) => {
 
     const renderCategoryItems = () => {
         return categoryData.map((categoryItemData) => {
-            let src = categoryItemData.src;
-            let name = categoryItemData.name;
-            let brand = categoryItemData.brand;
+            const src = categoryItemData.src;
+            const brand = categoryItemData.brand;
+            const name = categoryItemData.name ? categoryItemData.data : categoryItemData;
             return <CategoryItem key={name} src={src} name={name} brand={brand} />;
         });
     };
