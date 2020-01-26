@@ -300,6 +300,8 @@ def get_similar_products_uri(project_id, location, product_set_id, product_categ
             product.display_name))
         print('Product description: {}\n'.format(product.description))
         print('Product labels: {}\n'.format(product.product_labels))
+    return results
+
 iid=3
 
 def get_similar_products_file(project_id, location, product_set_id, product_category,file_path, filter):
@@ -465,66 +467,71 @@ def purge_products_in_product_set(project_id, location, product_set_id, force):
 
 @app.route("/getSimilar")
 def get_most_similar():
-
-    # threshold = request.args.get("percentage")
-    # data = request.json
-    # create_product_set(PROJECT_ID, LOCATION, "1", "shirts")
-    # create_product_set(PROJECT_ID, LOCATION, "2", "pants")
-    # for uri in range(3): # loop through shirts in user data
-    #     create_product(PROJECT_ID, LOCATION, str(iid), "name", CATEGORY)
-    #     create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid+1), uri)
-    #     add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), "1")
-    #     iid+=2
-    # for uri in range(3): # loop through pants in user data
-    #     create_product(PROJECT_ID, LOCATION, str(iid), "name", CATEGORY)
-    #     create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid+1), uri)
-    #     add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), "2")
-    #     iid+=2    
-    # for shirt in data["shirts"]:
-    #     get_similar_products_uri(PROJECT_ID, LOCATION, "1", CATEGORY, shirt["src"], "")
-    # for pant in data["pants"]:
-    #     get_similar_products_uri(PROJECT_ID, LOCATION, "2", CATEGORY, pant["src"], "")
-
-    #     create_product(PROJECT_ID, LOCATION, iid, shirt["name"], shirt["brand"])
-    #     create_reference_image(PROJECT_ID, LOCATION, iid, )
-    #     iid+=1
-    # for pant in data["pants"]:
-    #     create_product(PROJECT_ID, LOCATION, iid, pant["name"], pant["brand"])
-    #     iid+=1
-    try:
-        # create_product_set(PROJECT_ID, LOCATION, 'dd', 'shirts')
-        # create_product_set(PROJECT_ID, LOCATION, 'dd1', 'pants')
-        # create_product(PROJECT_ID, LOCATION, 'del4', 'shirt1', CATEGORY)
-        # create_product(PROJECT_ID, LOCATION, 'del5', 'pant1', CATEGORY)    
-        # add_product_to_product_set(PROJECT_ID, LOCATION, 'del4', 'dd')
-        # add_product_to_product_set(PROJECT_ID, LOCATION, 'del5', 'dd1')
-        # create_reference_image(PROJECT_ID, LOCATION, 'del6', 'bruh1', 'gs://matchmystyle-vcm/shirts/22756272_SearchResults.jpg')
-        # create_reference_image(PROJECT_ID, LOCATION, 'del6', 'bruh2', 'gs://matchmystyle-vcm/shirts/KIC_125-9156-0996-201_prod1 (1).jpg')
-        # create_reference_image(PROJECT_ID, LOCATION, 'del7', 'bruh3', 'gs://matchmystyle-vcm/pants/hmgoepprod.jfif')
-        # create_reference_image(PROJECT_ID, LOCATION, 'del7', 'bruh4', 'gs://matchmystyle-vcm/pants/hmgoepprod (1).jfif')
-        list_product_sets(PROJECT_ID, LOCATION)
-        list_products(PROJECT_ID, LOCATION)
-        # purge_products_in_product_set(PROJECT_ID, LOCATION, '121212', True)
-        # purge_products_in_product_set(PROJECT_ID, LOCATION, '1212123', True)
-
-        # create_product(PROJECT_ID, LOCATION, 'shirts_cat', 'shirt1', CATEGORY)
-        # add_product_to_product_set(PROJECT_ID, LOCATION, 'shirts_cat', '121212')
-
-        # create_product(PROJECT_ID, LOCATION, 'pants_cat', 'pant1', CATEGORY)
-        # add_product_to_product_set(PROJECT_ID, LOCATION, 'pants_cat', '1212123')
-
-        # list_product_sets(PROJECT_ID, LOCATION)
-        # list_products(PROJECT_ID, LOCATION)
-
-        # get_similar_products_uri(PROJECT_ID, LOCATION, '121212', CATEGORY, 'https://tommy-europe.scene7.com/is/image/TommyEurope/TT0TT06855_0YD_main?', '')
+    threshold = request.args.get("percentage")
+    data = request.json
+    create_product_set(PROJECT_ID, LOCATION, "1", "shirts")
+    create_product_set(PROJECT_ID, LOCATION, "2", "pants")
+    # loop through shirts and pants in catalog data, create products for them
+    for shirt in data["shirts"]:
+        create_product(PROJECT_ID, LOCATION, str(iid), "name", CATEGORY)
+        create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid+1), shirt["uri"])
+        add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), "1")
+        iid+=2
+    for pant in data["pants"]:
+        create_product(PROJECT_ID, LOCATION, str(iid), "name", CATEGORY)
+        create_reference_image(PROJECT_ID, LOCATION, str(iid), str(iid+1), pant["uri"])
+        add_product_to_product_set(PROJECT_ID, LOCATION, str(iid), "2")
+        iid+=2
+    # loop through user data GC links and get similar products in catalog and record similarity score
+    for uri in ramge(3): # loop through shirts
+        rs = get_similar_products_uri(PROJECT_ID, LOCATION, "1", CATEGORY, uri, "")
+        for r in rs:
+            for shirt in data["shirts"]:
+                if shirt["name"] == r.product.display_name:
+                    if "score" not in shirt:
+                        shirt["score"] = []
+                    shirt["score"].append(r.score)
+                    break
+    for uri in range(3): # loop through pants
+        rs = get_similar_products_uri(PROJECT_ID, LOCATION, "2", CATEGORY, uri, "")
+        for r in rs:
+            for pant in data["pants"]:
+                if pant["name"] == r.product.display_name:
+                    if "score" not in pant:
+                        pant["score"] = []
+                    pant["score"].append(r.score)
+                    break
+    # get the average score, delete if not above threshold
+    # TODO: make better algorithm to summarize the scores
+    for i in range(len(data["shirts"])):
+        data["shirts"][i]["score"] = mean(data["shirts"][i]["score"])
+        if data["shirts"][i]["score"] < threshold:
+            del data["shirts"][i]
+    for i in range(len(data["pants"])):
+        data["pants"][i]["score"] = mean(data["pants"][i]["score"])
+        if data["pants"][i]["score"] < threshold:
+            del data["pants"][i]
+    return jsonify(data)
     
-    except Exception as e:
-        print(e)
-        # cleanAll(PROJECT_ID, LOCATION)
-    cleanAll(PROJECT_ID, LOCATION)
-    global prodSet_to_prods
-    prodSet_to_prods = {}
-    return 'hey heyyyyyyy babuu frick'
+    # try:
+    #     create_product_set(PROJECT_ID, LOCATION, 'dd', 'shirts')
+    #     create_product_set(PROJECT_ID, LOCATION, 'dd1', 'pants')
+    #     create_product(PROJECT_ID, LOCATION, 'del4', 'shirt1', CATEGORY)
+    #     create_product(PROJECT_ID, LOCATION, 'del5', 'pant1', CATEGORY)    
+    #     add_product_to_product_set(PROJECT_ID, LOCATION, 'del4', 'dd')
+    #     add_product_to_product_set(PROJECT_ID, LOCATION, 'del5', 'dd1')
+    #     create_reference_image(PROJECT_ID, LOCATION, 'del4', 'bruh1', 'gs://matchmystyle-vcm/shirts/22756272_SearchResults.jpg')
+    #     create_reference_image(PROJECT_ID, LOCATION, 'del4', 'bruh2', 'gs://matchmystyle-vcm/shirts/KIC_125-9156-0996-201_prod1 (1).jpg')
+    #     create_reference_image(PROJECT_ID, LOCATION, 'del5', 'bruh3', 'gs://matchmystyle-vcm/pants/hmgoepprod.jfif')
+    #     create_reference_image(PROJECT_ID, LOCATION, 'del5', 'bruh4', 'gs://matchmystyle-vcm/pants/hmgoepprod (1).jfif')
+    #     get_similar_products_uri(PROJECT_ID, LOCATION, 'dd', CATEGORY, 'gs://matchmystyle-vcm/images to be searched/mens-regular-fit-solid-colour-linen-shirt.jpg', None)
+    # except Exception as e:
+    #     print(e)
+    #     cleanAll(PROJECT_ID, LOCATION)
+    # cleanAll(PROJECT_ID, LOCATION)
+    # global prodSet_to_prods
+    # prodSet_to_prods = {}
+    # return 'hey heyyyyyyy babuu frick'
 
 
 
