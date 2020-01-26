@@ -222,7 +222,7 @@ def get_similar_products_uri(project_id, location, product_set_id, product_categ
             product.display_name))
         print('Product description: {}\n'.format(product.description))
         print('Product labels: {}\n'.format(product.product_labels))
-    return result
+    #return result
 
 iid=3
 
@@ -254,21 +254,21 @@ def get_most_similar():
     # for pant in data["pants"]:
     #     create_product(PROJECT_ID, LOCATION, iid, pant["name"], pant["brand"])
     #     iid+=1
-
-    
-    create_product_set(PROJECT_ID, LOCATION, '121212', 'shirts')
-    # create_product_set(PROJECT_ID, LOCATION, '1212123', 'pants')
-    # create_product(PROJECT_ID, LOCATION, 'del', 'shirt1', 'apparel-v2')
-    # create_product(PROJECT_ID, LOCATION, 'del2', 'pant1', 'apparel-v2')    
-    # add_product_to_product_set(PROJECT_ID, LOCATION, 'del', '121212')
-    # add_product_to_product_set(PROJECT_ID, LOCATION, 'del2', '1212123')
-    # create_reference_image(PROJECT_ID, LOCATION, 'del', 'bruh1', 'gs://matchmystyle-vcm/shirts/22756272_SearchResults.jpg')
-    # create_reference_image(PROJECT_ID, LOCATION, 'del', 'bruh2', 'gs://matchmystyle-vcm/shirts/KIC_125-9156-0996-201_prod1(1).jpg')
-    # create_reference_image(PROJECT_ID, LOCATION, 'del2', 'bruh3', 'gs://matchmystyle-vcm/pants/hmgoepprod.jfif')
-    # create_reference_image(PROJECT_ID, LOCATION, 'del2', 'bruh4', 'gs://matchmystyle-vcm/pants/hmgoepprod(1).jfif')
-
-    # get_similar_products_uri(PROJECT_ID, LOCATION, 'shirts', CATEGORY, 
-    #     'https://media.cyrillus.com/Pictures/cyrillus/66834/mens-regular-fit-solid-colour-linen-shirt.jpg?width=542', '')
+    try:
+        create_product_set(PROJECT_ID, LOCATION, 'dd', 'shirts')
+        create_product_set(PROJECT_ID, LOCATION, 'dd1', 'pants')
+        create_product(PROJECT_ID, LOCATION, 'del4', 'shirt1', 'apparel-v2')
+        create_product(PROJECT_ID, LOCATION, 'del5', 'pant1', 'apparel-v2')    
+        add_product_to_product_set(PROJECT_ID, LOCATION, 'del4', 'dd')
+        add_product_to_product_set(PROJECT_ID, LOCATION, 'del5', 'dd1')
+        create_reference_image(PROJECT_ID, LOCATION, 'del4', 'bruh1', 'gs://matchmystyle-vcm/shirts/22756272_SearchResults.jpg')
+        create_reference_image(PROJECT_ID, LOCATION, 'del4', 'bruh2', 'gs://matchmystyle-vcm/shirts/KIC_125-9156-0996-201_prod1 (1).jpg')
+        create_reference_image(PROJECT_ID, LOCATION, 'del5', 'bruh3', 'gs://matchmystyle-vcm/pants/hmgoepprod.jfif')
+        create_reference_image(PROJECT_ID, LOCATION, 'del5', 'bruh4', 'gs://matchmystyle-vcm/pants/hmgoepprod (1).jfif')
+        get_similar_products_uri(PROJECT_ID, LOCATION, 'dd', CATEGORY, 'gs://matchmystyle-vcm/shirts/22756272_SearchResults.jpg', 'True')
+    except Exception as e:
+        print(e)
+        cleanAll(PROJECT_ID, LOCATION)
     cleanAll(PROJECT_ID, LOCATION)
     global prodSet_to_prods
     prodSet_to_prods = {}
