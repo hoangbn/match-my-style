@@ -4,7 +4,7 @@ import { useMediaQuery } from 'react-responsive';
 import { makeStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 import Input from '@material-ui/core/Input';
-import { MatchMyStyle } from '../assets/images';
+import { MatchMyStyle } from '../assets/images/';
 import { ReactSVG } from 'react-svg'
 
 const useStyles = makeStyles({
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 });
 
 const Header = ({ reloadStyles }) => {
-    const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
+    // const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
 
     // https://material-ui.com/components/slider/
     const classes = useStyles();
@@ -57,19 +57,19 @@ const Header = ({ reloadStyles }) => {
         }
     };
 
-    if (isMobile) {
-        return (
-            <div>
+    // if (isMobile) {
+    //     return (
+    //         <div>
 
-            </div>
-        );
-    }
+    //         </div>
+    //     );
+    // }
 
     return (
         <div className="desktopHeader">
             <ReactSVG src={MatchMyStyle}
                 beforeInjection={svg => {
-                    svg.classList.add('svg-class-name')
+                    svg.classList.add('desktopMatchMyStyleLogo')
                     svg.setAttribute('style',
                         'width: 300px; margin-left: 50px; margin-top: 10px;')
                 }}

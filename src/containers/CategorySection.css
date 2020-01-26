@@ -1,0 +1,22 @@
+.desktopCategoryOuter {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.desktopCategoryTitle {
+    font-family: 'Futura-Medium';
+    font-size: 36px;
+    color: #30C2D6;
+    margin: 0px;
+    margin-top: 10px;
+    margin-left: 50px;
+}
+
+.desktopCategoryItemRow {
+    display: flex;
+    flex-direction: row;
+    margin-top: 25px;
+    margin-left: 50px;
+    flex-wrap: wrap;
+}
