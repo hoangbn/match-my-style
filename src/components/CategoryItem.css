@@ -1,0 +1,47 @@
+.desktopCategoryItemOuter {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+    margin-right: 75px;
+}
+
+.desktopCategoryName {
+    margin: 15px 0 0;
+    font-family: 'Futura-Medium', sans-serif;
+    font-size: 20px;
+    color: #5A5A5A;
+    text-align: center;
+}
+
+.desktopCategoryBrand {
+    margin: 5px 0 0;
+    font-family: 'Futura-Medium-Italic', sans-serif;
+    font-size: 14px;
+    color: #A3A3A3;
+    text-align: center;
+}
+
+.desktopCategoryItemSrc {
+    height: 285px;
+    width: 240px;
+    object-fit: cover;
+}
+
+.desktopCategoryItemMatch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    left: 215px;
+    top: 23px;
+    background-color: #30C2D6;
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+}
+
+.desktopCategoryItemMatch > p {
+    font-family: 'Futura-Medium', sans-serif;
+    font-size: 16px;
+    color: #fff;
+}
