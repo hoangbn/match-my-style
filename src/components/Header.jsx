@@ -6,6 +6,7 @@ import Slider from '@material-ui/core/Slider';
 import Input from '@material-ui/core/Input';
 import { MatchMyStyle } from '../assets/images/';
 import { ReactSVG } from 'react-svg'
+import {trackPromise} from "react-promise-tracker";
 
 const useStyles = makeStyles({
     root: {
@@ -70,7 +71,7 @@ const Header = ({ reloadStyles }) => {
             <div className="desktopStyleMatchContainer" style={reloadStyles ? {} : {display: "none"}}>
                 {showReloadButton && (
                     <button className="desktopReloadStylesButton" onClick={() => {
-                        reloadStyles(value);
+                        trackPromise(reloadStyles(value));
                         setToggleReloadButton(false)
                     }}>
                         <p>Reload</p>
