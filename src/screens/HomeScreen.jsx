@@ -1,8 +1,9 @@
 import React from 'react';
-import './HomeScreen.css';
 import { Header } from '../components';
+import { Subheader } from '../components/Subheader';
 import { useMediaQuery } from 'react-responsive';
 import CategorySectionIterator from '../containers/CategorySectionIterator';
+import { catalogData } from '../catalogData';
 
 const HomeScreen = () => {
     //const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
@@ -23,10 +24,10 @@ const HomeScreen = () => {
     return (
         <>
             <Header reloadStyles={reloadStyles} />
-            <p className="desktopSubheader">{`Mens Demo Catalog > DeltaHacks 2020`}</p>
-            <CategorySectionIterator />
+            <Subheader text={"Men's Demo Catalog > DeltaHacks 2020"}/>
+            <CategorySectionIterator itemsData={catalogData}/>
         </>
     );
-}
+};
 
 export default HomeScreen;

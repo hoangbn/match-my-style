@@ -4,12 +4,12 @@ import './CategoryItem.css';;
 const CategoryItem = ({ src, name, brand }) => {
     return (
         <div className="desktopCategoryItemOuter">
-            <img className="desktopCategoryItemSrc" src={src} />
-            <p className="desktopCategoryName">{name}</p>
-            <p className="desktopCategoryBrand">{brand}</p>
             <div className="desktopCategoryItemMatch">
                 <p>77%</p>
             </div>
+            <img className="desktopCategoryItemSrc" src={src}  alt=""/>
+            <p className="desktopCategoryName">{name}</p>
+            <p className="desktopCategoryBrand">{brand}</p>
         </div>
     );
 };
