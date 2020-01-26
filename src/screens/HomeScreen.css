@@ -8,19 +8,40 @@
     align-items: center;
 }
 
-.desktopHeaderTitle {
-    margin: 0px;
-    font-family: 'Bodini-Book';
-    font-size: 72px;
-    color: #fff;
-    transform: scale(0.8, 1);
+.desktopStyleMatchContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .desktopStyleMatchText {
     margin: 0px;
     font-family: 'Futura-Medium';
-    font-size: 32px;
+    font-size: 24px;
     color: #fff;
     width: 100px;
     text-align: center;
+    margin-left: 25px;
+}
+
+.desktopReloadStylesButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0px solid #fff;
+    border-radius: 10px;
+    width: 80px;
+    height: 40px;
+    background-color: #fff;
+    outline: none;
+}
+
+.desktopReloadStylesButton > p {
+    display: flex;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    font-family: 'Futura-Medium';
+    font-size: 18px;
+    color: #30C2D6;
 }
