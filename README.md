@@ -1,69 +1,29 @@
-# match-my-style
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# MatchMyStyle
+## Inspiration
+We were inspired by the difficulty of filtering out the clothes we were interested in from all the available options. As a group of motivated undergraduate software developers, we were determined to find a solution.
 
-## Available Scripts
+## What it does
+MatchMyStyle intelligently filters brand catalogs using past items from your personal wardrobe that you love. It aims to enhance the shopping experience for both brands and their consumers.
 
-In the project directory, you can run:
+## How we built it
+We split our tech stack into three core ecosystems. Our backend ecosystem hosted its own API to communicate with the machine learning model, Cloud Firestore, Cloud Storage and our frontend. Cloud Firestore was used to store our user dataset for training purposes with the ability to add additional images and host them on Cloud Storage.
 
-### `yarn start`
+The ML ecosystem was built using Google Cloud's Vision API and fetched images using Cloud Storage buckets. It learns from images of past items you love from your personal wardrobe to deliver intelligent filters.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Finally, the frontend ecosystem demonstrates the potential that could be achieved by a fashion brand's catalog being coupled with our backend and ML technology to filter the items that matter to an individual user.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Challenges we ran into
+We knew going into this project that we wanted to accomplish something ambitious that could have a tangible impact on people to increase productivity. One of the biggest hurdles we encountered was finding the appropriate tools to facilitate our machine learning routine in a span of 24 hours. Eventually we decided on Google Cloud's Vision API which proved successful.
 
-### `yarn test`
+Our backend was the glue that held the entire project together. Ensuring efficient and robust communication across frontend and the machine learning routine involved many endpoints and moving parts.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Our frontend was our hook that we hoped would show brands and consumers the true potential of our technology. Featuring a custom design made in Figma and developed using JavaScript, React, and CSS, it attempts to demonstrate how our backend and ML ecosystems could be integrated into any brand's pre-existing frontend catalog.
 
-### `yarn build`
+## Accomplishments that we're proud of
+We're proud of finishing all of the core ecosystems and showing the potential of MatchMyStyle.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## What we learned
+We learned tons in the 24 hours of development. We became more familiar with Google Cloud's Vision API and the services it offers. We worked on our Python / Flask skills and familiarized ourselves with Cloud Firestore, and Cloud Storage. Finally, we improved our design skills and got better at developing more complex frontend code to bring it to life.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## What's next for MatchMyStyle
+We would love to see if fashion brands would be interested in our technology and any other ideas they may have on how we could offer value to both them and their consumers.
