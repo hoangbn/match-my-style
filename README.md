@@ -1,3 +1,4 @@
+# MatchMyStyle
 ## Inspiration
 We were inspired by the difficulty of filtering out the clothes we were interested in from all the available options. As a group of motivated undergraduate software developers, we were determined to find a solution.
 
